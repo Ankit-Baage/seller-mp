@@ -1,0 +1,49 @@
+.form__group__upload {
+  width: fit-content;
+  border-radius: 4px;
+  border: 1px dashed #00A267;
+  padding: 4px;
+  cursor: pointer;
+}
+
+
+
+.form__field__upload__label {
+  display: flex;
+  column-gap: 8px;
+  justify-content: center;
+  align-items: center;
+  background-color: #00A167;
+  border-radius: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
+ 
+
+}
+
+.form__field__upload__label__img {
+  width: 12px;
+  height: 12px;
+  display: block;
+  background-image: url("../../assets/download.svg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+}
+
+
+
+.form__field__upload__label__text {
+  font-family: "Poppins", sans;
+  font-size: 12px;
+  line-height: 12px;
+  font-weight: 500;
+  color: #FFFFFF;
+
+}
+
+.form__field__upload {
+  display: none;
+
+}
