@@ -140,32 +140,32 @@ export const VrpPage = () => {
       footer: (props) => props.column.id,
     }),
     // Accessor Column
-    columnHelper.accessor("5g_percentage", {
-      header: "5g %",
-      cell: (info) => info.getValue(),
-      footer: (props) => props.column.id,
-    }),
+    // columnHelper.accessor("5g_percentage", {
+    //   header: "5g %",
+    //   cell: (info) => info.getValue(),
+    //   footer: (props) => props.column.id,
+    // }),
     columnHelper.accessor("apple_percentage", {
       header: "Apple %",
       cell: (info) => info.getValue(),
       footer: (props) => props.column.id,
     }),
-    columnHelper.accessor("p4_percentage", {
-      header: "P4 %",
-      cell: (info) => info.getValue(),
-      footer: (props) => props.column.id,
-    }),
-    columnHelper.accessor("original_price", {
-      header: "Original Price",
-      cell: (info) => formatNumber(info.getValue()),
-      footer: (props) => props.column.id,
-    }),
+    // columnHelper.accessor("p4_percentage", {
+    //   header: "P4 %",
+    //   cell: (info) => info.getValue(),
+    //   footer: (props) => props.column.id,
+    // }),
+    // columnHelper.accessor("original_price", {
+    //   header: "Original Price",
+    //   cell: (info) => formatNumber(info.getValue()),
+    //   footer: (props) => props.column.id,
+    // }),
     // Accessor Column
-    columnHelper.accessor("discount_percentage", {
-      header: "Discount %",
-      cell: (info) => info.getValue(),
-      footer: (props) => props.column.id,
-    }),
+    // columnHelper.accessor("discount_percentage", {
+    //   header: "Discount %",
+    //   cell: (info) => info.getValue(),
+    //   footer: (props) => props.column.id,
+    // }),
     columnHelper.accessor("ASP", {
       header: "ASP",
       cell: (info) => info.getValue(),
@@ -176,11 +176,11 @@ export const VrpPage = () => {
       cell: (info) => info.getValue(),
       footer: (props) => props.column.id,
     }),
-    columnHelper.accessor("rate_card", {
-      header: "Rate Card",
-      cell: (info) => formatNumber(info.getValue()),
-      footer: (props) => props.column.id,
-    }),
+    // columnHelper.accessor("rate_card", {
+    //   header: "Rate Card",
+    //   cell: (info) => formatNumber(info.getValue()),
+    //   footer: (props) => props.column.id,
+    // }),
     columnHelper.accessor("status", {
       header: "Status",
       cell: (info) => info.getValue(),
