@@ -3,7 +3,7 @@ import { redirect } from "react-router-dom";
 
 export function checkAuthLoader() {
   const authToken = Cookies.get("authToken");
-  const timeStamp = Cookies.remove("expiryTimestamp");
+  const timeStamp = Cookies.get("expiryTimestamp");
 
   if (!authToken && !timeStamp) {
     return redirect("/");

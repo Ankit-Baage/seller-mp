@@ -12,19 +12,42 @@ import { useDispatch } from "react-redux";
 import { showToastWithTimeout } from "../../store/toaster/toasterActions";
 import { ConfirmationModal } from "../../components/ui/confiramationModal/ConfirmationModal";
 import { vrpDownloadRequest } from "../../utils/https-request/vrp/vrpDownloadRequest";
-import { formatNumber } from "../../utils/helpers/formatNumber";
+import { StockStatusModal } from "../../components/ui/stockStatus/StockStatusModal";
+import { vrpLotStockStatusRequest } from "../../utils/https-request/vrp/vrpLotstatusrequest";
 
 export const VrpPage = () => {
-  // const [rowDataToDelete, setRowDataToDelete] = useState(null);
   const [showConfirmation, setShowConfirmation] = useState(null);
-  const [open, setOpen] = useState(false);
+  const [openConfirmationModal, setConfirmationModal] = useState(false);
+  const [showStatus, setShowStatus] = useState(null);
+  const [openLotStatusModal, setOpenLotStatusModal] = useState(false);
   const { data, isError, isLoading, isSuccess } = useGetVrp();
+
+  console.log(data);
 
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
 
   const deleteRowMutation = useMutation({
     mutationFn: vrpTableDataDeleteRequest,
+    onSuccess: (response) => {
+      queryClient.invalidateQueries({ queryKey: ["vrp"] });
+      console.log(response);
+      dispatch(
+        showToastWithTimeout(response.data.message.displayMessage, "#00A167")
+      );
+    },
+    onError: (error) => {
+      dispatch(
+        showToastWithTimeout(
+          error.response.data.message.displayMessage,
+          "#D32F2F"
+        )
+      );
+    },
+  });
+
+  const changeStatusMutation = useMutation({
+    mutationFn: vrpLotStockStatusRequest,
     onSuccess: (response) => {
       queryClient.invalidateQueries({ queryKey: ["vrp"] });
       console.log(response);
@@ -53,8 +76,7 @@ export const VrpPage = () => {
       );
     } catch (error) {
       if (error.message) {
-
-        console.log(error.message)
+        console.log(error.message);
         // Handle net::ERR_FAILED error
         dispatch(
           showToastWithTimeout(
@@ -111,6 +133,26 @@ export const VrpPage = () => {
     }
   };
 
+  const handleStockStatusChange = (rowData) => {
+    const status = rowData.stock_status === "sold" ? "1" : "0";
+    setShowStatus({ requestId: rowData.request_id, status: status });
+  };
+
+  const handleCancelStockStatusChange = () => {
+    setShowStatus(null);
+    setOpenLotStatusModal(false);
+  };
+
+  const handleStockStatusChangeConfirm = async () => {
+    console.log(showStatus);
+    await changeStatusMutation.mutateAsync({
+      requestId: showStatus.requestId,
+      status: showStatus.status,
+    });
+    setShowStatus(null);
+    setOpenLotStatusModal(false);
+  };
+
   const handleDelete = (rowData) => {
     if (rowData.status === "deactivated") {
       return;
@@ -123,12 +165,12 @@ export const VrpPage = () => {
     console.log("Deleting row:", requestId);
     deleteRowMutation.mutateAsync(requestId);
     setShowConfirmation(null);
-    setOpen(false);
+    setConfirmationModal(false);
   };
 
   const handleCancelDelete = () => {
     setShowConfirmation(null);
-    setOpen(false);
+    setConfirmationModal(false);
   };
 
   const columnHelper = createColumnHelper();
@@ -188,6 +230,49 @@ export const VrpPage = () => {
     }),
 
     columnHelper.display({
+      id: "stock_status",
+      header: <div style={{ textAlign: "center" }}>Stock Status</div>,
+      cell: (props) => (
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <button
+            onClick={() => handleStockStatusChange(props.row.original)}
+            style={{
+              width: "fit-content",
+              color: "#FFFFFF",
+              fontSize: "12px",
+              lineHeight: "12px",
+              fontWeight: 500,
+              fontFamily: "Poppins, sans",
+              backgroundColor:
+                props.row.original.stock_status === "sold"
+                  ? "#FFD4C5"
+                  : "#00A167",
+              borderRadius: "4px",
+              padding: "8px",
+              border: "none",
+              cursor: "pointer",
+            }}
+          >
+            {props.row.original.stock_status === "sold" ? "Sold" : "In Stock"}
+          </button>
+          <AnimatePresence>
+            {showStatus &&
+              showStatus.requestId === props.row.original.request_id && (
+                <StockStatusModal
+                  key={props.row.original.request_id}
+                  data={props.row.original}
+                  onConfirm={handleStockStatusChangeConfirm}
+                  onCancel={handleCancelStockStatusChange}
+                  open={setOpenLotStatusModal}
+                  // onOpenChange={setOpen}
+                />
+              )}
+          </AnimatePresence>
+        </div>
+      ),
+    }),
+
+    columnHelper.display({
       id: "actions",
       header: <div style={{ textAlign: "center" }}>Action</div>,
       cell: (props) => (
@@ -224,7 +309,7 @@ export const VrpPage = () => {
                 data={props.row.original}
                 onConfirm={handleConfirmDelete}
                 onCancel={handleCancelDelete}
-                open={open}
+                open={ConfirmationModal}
                 // onOpenChange={setOpen}
               />
             )}

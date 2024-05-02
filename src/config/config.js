@@ -5,6 +5,7 @@ const role = "sellers/";
 const logInEndpoint = "login";
 const uploadImageEndPoint = "upload_file";
 const vrpDataDeleteEndPoint = (requestId) => `?request_id=${requestId}`;
+const vrpLotStockStatusEndPoint = (requestId, status) => `stock?request_id=${requestId}&status=${status}`;
 
 const vrpProductDetailDownloadEndPoint = "download_file?request_id=";
 
@@ -14,5 +15,9 @@ export const uploadImageUrl = `${baseUrl}${version}${mode}${role}${uploadImageEn
 
 export const VrpTableDataDeleteUrl = (requestId) =>
   `${baseUrl}${version}${mode}${role}${vrpDataDeleteEndPoint(requestId)}`;
-  export const vrpProductDetailDownloadUrl = (requestId) =>
+export const vrpProductDetailDownloadUrl = (requestId) =>
   `${baseUrl}${version}${mode}${role}${vrpProductDetailDownloadEndPoint}${requestId}`;
+
+
+  export const VrpLotStockStatusUrl = (requestId, status) =>
+  `${baseUrl}${version}${mode}${role}${vrpLotStockStatusEndPoint(requestId, status)}`;
