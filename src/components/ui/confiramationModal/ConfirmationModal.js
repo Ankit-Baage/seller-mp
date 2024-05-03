@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import classes from "./confirmationModal.module.css";
 
-export const ConfirmationModal = ({ data, onConfirm, onCancel, open }) => {
+export const ConfirmationModal = ({ data, onConfirm, onCancel }) => {
   const handleCancelDelete = () => {
     onCancel();
   };
@@ -20,7 +20,6 @@ export const ConfirmationModal = ({ data, onConfirm, onCancel, open }) => {
         animate={{ opacity: 1, y: -120 }}
         exit={{ opacity: 0, y: 30 }}
         transition={{ duration: 0.5 }}
-        open={open}
       >
         <h5 className={classes.title}>Do you want to delete ?</h5>
         <div className={classes.form}>

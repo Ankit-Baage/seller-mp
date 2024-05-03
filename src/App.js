@@ -10,6 +10,9 @@ import { HomePage } from "./pages/home/homePage/HomePage";
 import "./App.css";
 import { VrpPage } from "./pages/vrp/VrpPage";
 import { checkAuthLoader } from "./utils/loaders/checkAuthLoader";
+
+import {authLoader} from "./utils/auth"
+import { action as logOutAction } from "./pages/home/homePage/logOut/LogOut";
 import { ErrorPage } from "./pages/error/ErrorPage";
 
 const router = createBrowserRouter([
@@ -27,8 +30,9 @@ const router = createBrowserRouter([
         path: "/home",
         element: <Home />,
         loader: checkAuthLoader,
-        children: [{ index: true, element: <VrpPage/> }],
+        children: [{ index: true, element: <VrpPage /> }],
       },
+      { path: "logout", action: logOutAction },
     ],
   },
 ]);

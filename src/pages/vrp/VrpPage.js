@@ -22,8 +22,6 @@ export const VrpPage = () => {
   const [openLotStatusModal, setOpenLotStatusModal] = useState(false);
   const { data, isError, isLoading, isSuccess } = useGetVrp();
 
-  console.log(data);
-
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
 
@@ -75,20 +73,17 @@ export const VrpPage = () => {
         showToastWithTimeout(response.data.message.displayMessage, "#00A167")
       );
     } catch (error) {
-      if (error.message) {
-        console.log(error.message);
-        // Handle net::ERR_FAILED error
+      if (error.response && error.response.data.message.displayMessage) {
         dispatch(
           showToastWithTimeout(
-            "File size exceeds the maximum limit. Please upload a smaller file.",
+            `Error: ${error.response.data.message.displayMessage}`,
             "#D32F2F"
           )
         );
       } else {
-        // Handle other errors
         dispatch(
           showToastWithTimeout(
-            `Error: ${error.response.data.message.displayMessage}`,
+            "File size exceeds the maximum limit. Please upload a smaller file.",
             "#D32F2F"
           )
         );
@@ -225,6 +220,17 @@ export const VrpPage = () => {
     // }),
     columnHelper.accessor("status", {
       header: "Status",
+      cell: (info) => info.getValue(),
+      footer: (props) => props.column.id,
+    }),
+    columnHelper.accessor("remarks", {
+      header: "Remarks",
+      cell: (info) => info.getValue(),
+      footer: (props) => props.column.id,
+    }),
+
+    columnHelper.accessor("approval_status", {
+      header: "Approval Status",
       cell: (info) => info.getValue(),
       footer: (props) => props.column.id,
     }),

@@ -2,6 +2,7 @@ import { sellerLoginUrl } from "../../../config/config";
 import axios from "axios";
 import axiosInstance from "../../axios-middleware/axiosMiddleware";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 
 export const logOut = () => {
@@ -38,7 +39,6 @@ export const logInRequest = async (data) => {
     console.log(authToken);
     Cookies.set("authToken", authToken);
     Cookies.set("expiryTimestamp", expiryTimestamp);
-    handleTokenExpiration(expiryTimestamp);
 
     return response.data;
   } catch (error) {

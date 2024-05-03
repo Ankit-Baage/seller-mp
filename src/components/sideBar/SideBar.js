@@ -4,7 +4,7 @@ import prexo from "../../assets/prexo.svg";
 import vrp from "../../assets/vrp.svg";
 import openBox from "../../assets/openBox.svg";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Form, Link, useNavigate } from "react-router-dom";
 import { Button } from "../ui/button/Button";
 import classes from "./sidebar.module.css";
 import { useDispatch } from "react-redux";
@@ -12,17 +12,14 @@ import { showToastWithTimeout } from "../../store/toaster/toasterActions";
 import { logOut } from "../../utils/https-request/auth/logInRequest";
 
 export const SideBar = () => {
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleLogOut = ()=>{
+  const handleLogOut = () => {
     dispatch(showToastWithTimeout("Logging Out..."));
-    navigate("/")
+    navigate("/");
     logOut();
-    
-
-  }
+  };
 
   const categories = [
     { id: "prexo", image: prexo, name: "PREXO" },
@@ -110,7 +107,10 @@ export const SideBar = () => {
           <hr className={classes.box__item__divider} />
         </div>
         <div className={classes.container__box__categories}>
-          <Button text="Log Out" type="button" onClick={handleLogOut}/>
+          {/* <Button text="Log Out" type="button" onClick={handleLogOut} /> */}
+          <Form action="/logout" method="post">
+            <Button text="Log Out" />
+          </Form>
         </div>
       </div>
     </div>
