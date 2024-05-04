@@ -242,6 +242,7 @@ export const VrpPage = () => {
         <div style={{ display: "flex", justifyContent: "center" }}>
           <button
             onClick={() => handleStockStatusChange(props.row.original)}
+            disabled={props.row.original.status === "deactivated"}
             style={{
               width: "fit-content",
               color: "#FFFFFF",
@@ -250,13 +251,20 @@ export const VrpPage = () => {
               fontWeight: 500,
               fontFamily: "Poppins, sans",
               backgroundColor:
-                props.row.original.stock_status === "sold"
-                  ? "#FFD4C5"
+                props.row.original.status === "deactivated"
+                  ? props.row.original.stock_status === "sold"
+                    ? "#FFD4C5"
+                    : "#C8FACD" // Lighter green
+                  : props.row.original.stock_status === "sold"
+                  ? "#FF6F3F"
                   : "#00A167",
               borderRadius: "4px",
               padding: "8px",
               border: "none",
-              cursor: "pointer",
+              cursor:
+                props.row.original.status === "deactivated"
+                  ? "default"
+                  : "pointer",
             }}
           >
             {props.row.original.stock_status === "sold" ? "Sold" : "In Stock"}
