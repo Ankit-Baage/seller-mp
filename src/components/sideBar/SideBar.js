@@ -12,14 +12,14 @@ import { showToastWithTimeout } from "../../store/toaster/toasterActions";
 import { logOut } from "../../utils/https-request/auth/logInRequest";
 
 export const SideBar = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const dispatch = useDispatch();
+  // const navigate = useNavigate();
 
-  const handleLogOut = () => {
-    dispatch(showToastWithTimeout("Logging Out..."));
-    navigate("/");
-    logOut();
-  };
+  // const handleLogOut = () => {
+  //   dispatch(showToastWithTimeout("Logging Out..."));
+  //   navigate("/");
+  //   logOut();
+  // };
 
   const categories = [
     { id: "prexo", image: prexo, name: "PREXO" },
@@ -28,8 +28,12 @@ export const SideBar = () => {
   ];
 
   const contacts = [
-    { id: "phone", link: "+91 9999123511" },
-    { id: "email", link: "contact@mobigarage.com" },
+    { id: "phone", link: "+919999123511", label: "+91 9999123511" },
+    {
+      id: "email",
+      link: "contact@mobigarage.com",
+      label: "contact@mobigarage.com",
+    },
   ];
   return (
     <div className={classes.stack}>
@@ -90,16 +94,19 @@ export const SideBar = () => {
           <div className={classes.container__box__categories__box}>
             {contacts.map((contact) => (
               <a
-                href="tel:+91 9999123511"
                 key={contact.id}
-                className={classes.container__box__categories__box__category}
+                href={
+                  contact.id === "phone"
+                    ? `tel:${contact.link}`
+                    : `mailto:${contact.link}`
+                }
               >
                 <h5
                   className={
                     classes.container__box__categories__box__category__name
                   }
                 >
-                  {contact.link}
+                  {contact.label}
                 </h5>
               </a>
             ))}

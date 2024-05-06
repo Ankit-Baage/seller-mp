@@ -14,6 +14,8 @@ import { ConfirmationModal } from "../../components/ui/confiramationModal/Confir
 import { vrpDownloadRequest } from "../../utils/https-request/vrp/vrpDownloadRequest";
 import { StockStatusModal } from "../../components/ui/stockStatus/StockStatusModal";
 import { vrpLotStockStatusRequest } from "../../utils/https-request/vrp/vrpLotstatusrequest";
+import { VrpPageSkeleton } from "../../components/ui/skeleton/vrpPageSkeleton/VrpPageSkeleton";
+
 
 export const VrpPage = () => {
   const [showConfirmation, setShowConfirmation] = useState(null);
@@ -362,7 +364,7 @@ export const VrpPage = () => {
     }),
   ];
 
-  return isSuccess && data.data.data ? (
+  return isSuccess ? (
     <div className={classes.box}>
       <div className={classes.box__btn}>
         <FileUploadInput id="image_url" onChange={(e) => handleFileChange(e)} />
@@ -377,5 +379,5 @@ export const VrpPage = () => {
 
       <BasicTable tableData={data.data.data} tableColumns={columns} />
     </div>
-  ) : null;
+  ) :<VrpPageSkeleton />;
 };
