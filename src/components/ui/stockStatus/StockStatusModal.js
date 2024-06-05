@@ -8,9 +8,9 @@ export const StockStatusModal = ({ data, onConfirm, onCancel, open }) => {
   const handleCancelDelete = () => {
     onCancel();
   };
-  const handleConfirmDelete = () => {
-    onConfirm();
-  };
+  // const handleConfirmDelete = () => {
+  //   onConfirm();
+  // };
   return (
     <>
       <div className={classes.backdrop} onClick={handleCancelDelete} />
@@ -26,7 +26,7 @@ export const StockStatusModal = ({ data, onConfirm, onCancel, open }) => {
         <h5 className={classes.title}>You Are Going To Change The Status</h5>
         <div className={classes.btns}>
           To
-          <button className={classes.form__btn} onClick={handleConfirmDelete}>
+          <button className={classes.form__btn} onClick={onConfirm}>
           {content}
           </button>
           {/* <button

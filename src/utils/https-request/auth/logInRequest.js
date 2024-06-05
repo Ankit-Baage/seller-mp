@@ -1,8 +1,8 @@
-import { sellerLoginUrl } from "../../../config/config";
 import axios from "axios";
 import axiosInstance from "../../axios-middleware/axiosMiddleware";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import { sellerLoginUrl } from "../../../config/auth/authConfig";
 
 
 export const logOut = () => {

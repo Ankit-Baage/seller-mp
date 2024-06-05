@@ -1,23 +1,24 @@
-import { requestOtpUrl } from "../../../config/config";
-import axios from "axios";
+
+import { spareUrl } from "../../../config/spare/spareConfig";
 import axiosInstance from "../../axios-middleware/axiosMiddleware";
 
-export const otpRequested = async (mobile_no) => {
+export const sparesRequest = async () => {
   try {
-    const response = await axiosInstance
-      .post(
-        requestOtpUrl,
-        { mobile_no },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+    const response = await axiosInstance.get(
+      spareUrl,
 
-    return response.data;
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    console.log(response.data.data)
+
+    return response;
   } catch (error) {
-    if (axios.isAxiosError(error)) {
+    if (axiosInstance.isAxiosError(error)) {
       // Axios error (e.g., network error, 404 Not Found)
       // console.error("Axios error:", error.message);
       throw new Error("Server error");

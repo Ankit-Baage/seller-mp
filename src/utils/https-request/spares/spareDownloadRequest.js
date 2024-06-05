@@ -1,4 +1,5 @@
-import { vrpProductDetailDownloadUrl } from "../../../config/vrp/vrpConfig";
+
+import { spareProductDetailDownloadUrl } from "../../../config/spare/spareConfig";
 import axiosInstance from "../../axios-middleware/axiosMiddleware";
 
 export const downloadFile = async (url) => {
@@ -14,9 +15,9 @@ export const downloadFile = async (url) => {
   }
 };
 
-export const vrpDownloadRequest = async ({ requestId }) => {
+export const spareDownloadRequest = async ({ requestId }) => {
   try {
-    const downloadUrl = vrpProductDetailDownloadUrl(requestId);
+    const downloadUrl = spareProductDetailDownloadUrl(requestId);
     console.log("url :", downloadUrl);
     const fileData = await downloadFile(downloadUrl);
 

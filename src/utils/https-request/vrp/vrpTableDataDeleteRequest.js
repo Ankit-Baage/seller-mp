@@ -1,4 +1,5 @@
-import { VrpTableDataDeleteUrl } from "../../../config/config";
+
+import { VrpTableDataDeleteUrl } from "../../../config/vrp/vrpConfig";
 import axiosInstance from "../../axios-middleware/axiosMiddleware";
 
 export const vrpTableDataDeleteRequest = async (requestId) => {

@@ -13,6 +13,7 @@ import { checkAuthLoader } from "./utils/loaders/checkAuthLoader";
 
 import { action as logOutAction } from "./pages/home/homePage/logOut/LogOut";
 import { ErrorPage } from "./pages/error/ErrorPage";
+import { SparesPage } from "./pages/spares/SparesPage";
 
 const router = createBrowserRouter([
   {
@@ -29,7 +30,11 @@ const router = createBrowserRouter([
         path: "/home",
         element: <Home />,
         loader: checkAuthLoader,
-        children: [{ index: true, element: <VrpPage /> }],
+        children: [
+          { index: true, element: <HomePage /> },
+          { path: "vrp", element: <VrpPage /> },
+          { path: "spares", element: <SparesPage /> },
+        ],
       },
       { path: "logout", action: logOutAction },
     ],

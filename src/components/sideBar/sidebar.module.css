@@ -101,16 +101,11 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  padding: 4px 8px;
-  
+  padding: 6px 8px;
+  border-radius: 4px;
 
 }
 
-.container__box__categories__box__category:hover {
-  background-color: #F5F5F5; /* Change to your desired grayish color */
-  transition: background-color 0.3s ease; /* Add transition for smooth effect */
-  border-radius: 8px;
-}
 
 
 
@@ -125,5 +120,13 @@
   font-size: 14px;
   font-weight: 600;
   color: #9C9C9C;
+
+}
+
+.isActive {
+  border: 1px solid #FF6F3F;
+  border-radius: 4px;
+  background-color: #FFD4C5;
+
 
 }

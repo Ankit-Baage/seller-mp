@@ -7,22 +7,25 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { vrpTableDataDeleteRequest } from "../../utils/https-request/vrp/vrpTableDataDeleteRequest";
 import { FileUploadInput } from "../../components/fileUploadInput/FileUploadInput";
 import { uploadImageRequest } from "../../utils/https-request/vrp/uploadImage";
-import classes from "./vrpPage.module.css";
+import classes from "./sparesPage.module.css";
 import { useDispatch } from "react-redux";
 import { showToastWithTimeout } from "../../store/toaster/toasterActions";
 import { ConfirmationModal } from "../../components/ui/confiramationModal/ConfirmationModal";
 import { vrpDownloadRequest } from "../../utils/https-request/vrp/vrpDownloadRequest";
 import { StockStatusModal } from "../../components/ui/stockStatus/StockStatusModal";
-import { VrpPageSkeleton } from "../../components/ui/skeleton/vrpPageSkeleton/VrpPageSkeleton";
 import { vrpLotStockStatusRequest } from "../../utils/https-request/vrp/vrpLotStatusRequest";
+import { VrpPageSkeleton } from "../../components/ui/skeleton/vrpPageSkeleton/VrpPageSkeleton";
+import useGetSpares from "../../tanstack-query/spares/useGetSpares";
+import { spareDownloadRequest } from "../../utils/https-request/spares/spareDownloadRequest";
+import { spareUploadImageRequest } from "../../utils/https-request/spares/spareUploadImageRequest";
 
 
-export const VrpPage = () => {
+export const SparesPage = () => {
   const [showConfirmation, setShowConfirmation] = useState(null);
   const [openConfirmationModal, setConfirmationModal] = useState(false);
   const [showStatus, setShowStatus] = useState(null);
   const [openLotStatusModal, setOpenLotStatusModal] = useState(false);
-  const { data, isError, isLoading, isSuccess } = useGetVrp();
+  const { data, isError, isLoading, isSuccess } = useGetSpares();
 
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
@@ -69,7 +72,7 @@ export const VrpPage = () => {
     const selectedFile = event.target.files[0];
 
     try {
-      const response = await uploadImageRequest(selectedFile);
+      const response = await spareUploadImageRequest(selectedFile);
 
       dispatch(
         showToastWithTimeout(response.data.message.displayMessage, "#00A167")
@@ -97,7 +100,7 @@ export const VrpPage = () => {
 
   const handleDownloadSample = async () => {
     const downloadUrl =
-      "https://mgstorageaccount.blob.core.windows.net/mgbucket/mg_template_vrp_file.xlsx";
+      "https://mgstorageaccount.blob.core.windows.net/mgbucket/Spares_Upload_template.xlsx";
     const anchor = document.createElement("a");
     anchor.href = downloadUrl;
     anchor.target = "_blank";
@@ -111,7 +114,7 @@ export const VrpPage = () => {
 
   const onDownload = async (rowData) => {
     try {
-      const fileData = await vrpDownloadRequest({
+      const fileData = await spareDownloadRequest({
         requestId: rowData.request_id,
       });
       dispatch(showToastWithTimeout("Downloading...", "#00A167"));
@@ -130,25 +133,25 @@ export const VrpPage = () => {
     }
   };
 
-  const handleStockStatusChange = (rowData) => {
-    const status = rowData.stock_status === "sold" ? "1" : "0";
-    setShowStatus({ requestId: rowData.request_id, status: status });
-  };
+  // const handleStockStatusChange = (rowData) => {
+  //   const status = rowData.stock_status === "sold" ? "1" : "0";
+  //   setShowStatus({ requestId: rowData.request_id, status: status });
+  // };
 
-  const handleCancelStockStatusChange = () => {
-    setShowStatus(null);
-    setOpenLotStatusModal(false);
-  };
+  // const handleCancelStockStatusChange = () => {
+  //   setShowStatus(null);
+  //   setOpenLotStatusModal(false);
+  // };
 
-  const handleStockStatusChangeConfirm = async () => {
-    console.log(showStatus.requestId);
-    await changeStatusMutation.mutateAsync({
-      requestId: showStatus.requestId,
-      status: showStatus.status,
-    });
-    setShowStatus(null);
-    setOpenLotStatusModal(false);
-  };
+  // const handleStockStatusChangeConfirm = async () => {
+  //   console.log(showStatus);
+  //   await changeStatusMutation.mutateAsync({
+  //     requestId: showStatus.requestId,
+  //     status: showStatus.status,
+  //   });
+  //   setShowStatus(null);
+  //   setOpenLotStatusModal(false);
+  // };
 
   const handleDelete = (rowData) => {
     if (rowData.status === "deactivated") {
@@ -173,17 +176,23 @@ export const VrpPage = () => {
   const columnHelper = createColumnHelper();
 
   const columns = [
-    columnHelper.accessor("lot_id", {
-      header: "Lot Id",
-      cell: (info) => info.getValue(),
-      footer: (props) => props.column.id,
-    }),
-   
-    columnHelper.accessor("apple_percentage", {
-      header: "Apple %",
-      cell: (info) => info.getValue(),
-      footer: (props) => props.column.id,
-    }),
+    // columnHelper.accessor("lot_id", {
+    //   header: "Lot Id",
+    //   cell: (info) => info.getValue(),
+    //   footer: (props) => props.column.id,
+    // }),
+    // Accessor Column
+    // columnHelper.accessor("5g_percentage", {
+    //   header: "5g %",
+    //   cell: (info) => info.getValue(),
+    //   footer: (props) => props.column.id,
+    // }),
+    // columnHelper.accessor("apple_percentage", {
+    //   header: "Apple %",
+    //   cell: (info) => info.getValue(),
+    //   footer: (props) => props.column.id,
+    // }),
+    // columnHelper.accessor("p4_percentage", {
     //   header: "P4 %",
     //   cell: (info) => info.getValue(),
     //   footer: (props) => props.column.id,
@@ -199,22 +208,33 @@ export const VrpPage = () => {
     //   cell: (info) => info.getValue(),
     //   footer: (props) => props.column.id,
     // }),
-    columnHelper.accessor("ASP", {
-      header: "ASP",
-      cell: (info) => info.getValue(),
-      footer: (props) => props.column.id,
-    }),
-    columnHelper.accessor("total_phones", {
-      header: "Total Phones",
-      cell: (info) => info.getValue(),
-      footer: (props) => props.column.id,
-    }),
+    // columnHelper.accessor("ASP", {
+    //   header: "ASP",
+    //   cell: (info) => info.getValue(),
+    //   footer: (props) => props.column.id,
+    // }),
+    // columnHelper.accessor("total_phones", {
+    //   header: "Total Phones",
+    //   cell: (info) => info.getValue(),
+    //   footer: (props) => props.column.id,
+    // }),
+    // columnHelper.accessor("rate_card", {
     //   header: "Rate Card",
     //   cell: (info) => formatNumber(info.getValue()),
     //   footer: (props) => props.column.id,
     // }),
+    columnHelper.accessor("request_id", {
+      header: "Request Id",
+      cell: (info) => info.getValue(),
+      footer: (props) => props.column.id,
+    }),
     columnHelper.accessor("status", {
       header: "Status",
+      cell: (info) => info.getValue(),
+      footer: (props) => props.column.id,
+    }),
+    columnHelper.accessor("quantity", {
+      header: "Quantity",
       cell: (info) => info.getValue(),
       footer: (props) => props.column.id,
     }),
@@ -230,56 +250,56 @@ export const VrpPage = () => {
       footer: (props) => props.column.id,
     }),
 
-    columnHelper.display({
-      id: "stock_status",
-      header: <div style={{ textAlign: "center" }}>Stock Status</div>,
-      cell: (props) => (
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <button
-            onClick={() => handleStockStatusChange(props.row.original)}
-            disabled={props.row.original.status === "deactivated"}
-            style={{
-              width: "fit-content",
-              color: "#FFFFFF",
-              fontSize: "12px",
-              lineHeight: "12px",
-              fontWeight: 500,
-              fontFamily: "Poppins, sans",
-              backgroundColor:
-                props.row.original.status === "deactivated"
-                  ? props.row.original.stock_status === "sold"
-                    ? "#FFD4C5"
-                    : "#C8FACD" // Lighter green
-                  : props.row.original.stock_status === "sold"
-                  ? "#FF6F3F"
-                  : "#00A167",
-              borderRadius: "4px",
-              padding: "8px",
-              border: "none",
-              cursor:
-                props.row.original.status === "deactivated"
-                  ? "default"
-                  : "pointer",
-            }}
-          >
-            {props.row.original.stock_status === "sold" ? "Sold" : "In Stock"}
-          </button>
-          <AnimatePresence>
-            {showStatus &&
-              showStatus.requestId === props.row.original.request_id && (
-                <StockStatusModal
-                  key={props.row.original.request_id}
-                  data={props.row.original}
-                  onConfirm={handleStockStatusChangeConfirm}
-                  onCancel={handleCancelStockStatusChange}
-                  open={setOpenLotStatusModal}
-                  // onOpenChange={setOpen}
-                />
-              )}
-          </AnimatePresence>
-        </div>
-      ),
-    }),
+    // columnHelper.display({
+    //   id: "stock_status",
+    //   header: <div style={{ textAlign: "center" }}>Stock Status</div>,
+    //   cell: (props) => (
+    //     <div style={{ display: "flex", justifyContent: "center" }}>
+    //       <button
+    //         onClick={() => handleStockStatusChange(props.row.original)}
+    //         disabled={props.row.original.status === "deactivated"}
+    //         style={{
+    //           width: "fit-content",
+    //           color: "#FFFFFF",
+    //           fontSize: "12px",
+    //           lineHeight: "12px",
+    //           fontWeight: 500,
+    //           fontFamily: "Poppins, sans",
+    //           backgroundColor:
+    //             props.row.original.status === "deactivated"
+    //               ? props.row.original.stock_status === "sold"
+    //                 ? "#FFD4C5"
+    //                 : "#C8FACD" // Lighter green
+    //               : props.row.original.stock_status === "sold"
+    //               ? "#FF6F3F"
+    //               : "#00A167",
+    //           borderRadius: "4px",
+    //           padding: "8px",
+    //           border: "none",
+    //           cursor:
+    //             props.row.original.status === "deactivated"
+    //               ? "default"
+    //               : "pointer",
+    //         }}
+    //       >
+    //         {props.row.original.stock_status === "sold" ? "Sold" : "In Stock"}
+    //       </button>
+    //       <AnimatePresence>
+    //         {showStatus &&
+    //           showStatus.requestId === props.row.original.request_id && (
+    //             <StockStatusModal
+    //               key={props.row.original.request_id}
+    //               data={props.row.original}
+    //               onConfirm={handleStockStatusChangeConfirm}
+    //               onCancel={handleCancelStockStatusChange}
+    //               open={setOpenLotStatusModal}
+    //               // onOpenChange={setOpen}
+    //             />
+    //           )}
+    //       </AnimatePresence>
+    //     </div>
+    //   ),
+    // }),
 
     columnHelper.display({
       id: "actions",

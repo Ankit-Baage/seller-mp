@@ -1,4 +1,5 @@
-import { VrpLotStockStatusUrl } from "../../../config/config";
+
+import { VrpLotStockStatusUrl } from "../../../config/vrp/vrpConfig";
 import axiosInstance from "../../axios-middleware/axiosMiddleware";
 
 export const vrpLotStockStatusRequest = async (data) => {

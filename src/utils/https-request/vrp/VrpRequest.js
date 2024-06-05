@@ -1,4 +1,5 @@
-import { vrpUrl } from "../../../config/config";
+
+import { vrpUrl } from "../../../config/vrp/vrpConfig";
 import axiosInstance from "../../axios-middleware/axiosMiddleware";
 
 export const vrpRequest = async () => {
