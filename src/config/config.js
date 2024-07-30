@@ -1,18 +1,11 @@
-// const baseUrl = "https://dev.backend.mobigarage.com/";
-// const version = "v1/";
-// const mode = "mp/";
-// const role = "sellers/";
-// const logInEndpoint = "login";
-// const uploadImageEndPoint = "upload_file";
-// const vrpDataDeleteEndPoint = (requestId) => `?request_id=${requestId}`;
+export const baseUrl = "https://dev.backend.mobigarage.com";
 
-// const vrpProductDetailDownloadEndPoint = "download_file?request_id=";
+export const version = "/v1";
+export const mode = "/mp";
+export const role = "/sellers";
+export const vrp = "/vrp";
+export const spares = "/spares";
+export const newPhones = "/new_phones";
+export const login = "/login";
+export const uploadFile = "/upload_file";
 
-// export const sellerLoginUrl = `${baseUrl}${version}${mode}${role}${logInEndpoint}`;
-// export const vrpUrl = `${baseUrl}${version}${mode}${role}`;
-// export const uploadImageUrl = `${baseUrl}${version}${mode}${role}${uploadImageEndPoint}`;
-
-// export const VrpTableDataDeleteUrl = (requestId) =>
-//   `${baseUrl}${version}${mode}${role}${vrpDataDeleteEndPoint(requestId)}`;
-//   export const vrpProductDetailDownloadUrl = (requestId) =>
-//   `${baseUrl}${version}${mode}${role}${vrpProductDetailDownloadEndPoint}${requestId}`;

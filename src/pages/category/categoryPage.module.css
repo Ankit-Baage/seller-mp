@@ -1,0 +1,41 @@
+.box {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  justify-content: space-between;
+}
+
+.box__btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+
+.box__details__download {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 8px;
+  background-color: #00A167;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-family: "Poppins", sans;
+  font-size: 12px;
+  line-height: 12px;
+  font-weight: 500;
+  color: #FFFFFF;
+  cursor: pointer;
+}
+
+
+.box__details__download__img {
+  width: 12px;
+  height: 12px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url(../../assets/download.svg);
+
+}

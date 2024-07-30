@@ -1,17 +1,12 @@
-// store.js
 import { configureStore } from "@reduxjs/toolkit";
-
-import backdropReducer from "./backdropSlice";
-import toasterReducer from "./toaster/toasterSlice";
-import phoneNumberReducer from "./authentication/phoneNumberSlice";
-import spinnerReducer from "./spinnerSlice";
+import { setupListeners } from "@reduxjs/toolkit/query";
+import rootReducer from "./rootReducer";
+import { apiSlice } from "../services/apiSlice";
 
 export const store = configureStore({
-  reducer: {
-    backdrop: backdropReducer,
-    toaster: toasterReducer,
-    phoneNumber: phoneNumberReducer,
-    spinner: spinnerReducer,
-    // Add other reducers if any
-  },
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(apiSlice.middleware),
 });
+
+setupListeners(store.dispatch);
