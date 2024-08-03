@@ -16,7 +16,6 @@ import { toast } from "react-toastify";
 import { FileUploadInput } from "../../component/fileUploadInput/FileUploadInput";
 import { uploadImageRequest } from "../../http-request/uploadFile";
 
-
 export const CategoryPage = () => {
   const dispatch = useDispatch();
 
@@ -24,7 +23,6 @@ export const CategoryPage = () => {
   const category = params.category;
 
   const appliedFilters = useSelector(selectCategoryState);
- 
 
   const { isSuccess, error } = useGetCategoryListQuery(appliedFilters, {
     skip: !appliedFilters.category,
@@ -69,18 +67,16 @@ export const CategoryPage = () => {
       event.target.value = null;
     }
   };
-
   const handleDownloadSample = async () => {
     const downloadUrl =
       "https://mgstorageaccount.blob.core.windows.net/mgbucket/mg_template_vrp_file.xlsx";
     const anchor = document.createElement("a");
     anchor.href = downloadUrl;
-    anchor.target = "_blank";
+    anchor.target = "_self";
     anchor.download = "mg_template_vrp_file.xlsx";
-
     document.body.appendChild(anchor);
-    anchor.click();
 
+    anchor.click();
     document.body.removeChild(anchor);
   };
 
