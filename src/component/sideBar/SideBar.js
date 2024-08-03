@@ -15,6 +15,7 @@ import classes from "./sideBar.module.css";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/authSlice";
 import { apiSlice } from "../../services/apiSlice";
+import { toast } from "react-toastify";
 
 const categories = [
   { id: "home", image: dashboard, name: "HOME", path: "/dashboard" },
@@ -45,6 +46,8 @@ export const SideBar = () => {
     Cookies.remove("expirationTime");
     dispatch(logout());
     dispatch(apiSlice.util.resetApiState());
+    
+    toast.success("Logged out successfully")
     navigate("/");
   };
   return (

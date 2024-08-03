@@ -14,9 +14,8 @@ import classes from "./categoryPage.module.css";
 import { CategoryPageSkeleton } from "../../component/skeleton/CategoryPageSkeleton";
 import { toast } from "react-toastify";
 import { FileUploadInput } from "../../component/fileUploadInput/FileUploadInput";
-import { downloadTemplate } from "../../http-request/downLoadTemplate";
 import { uploadImageRequest } from "../../http-request/uploadFile";
-import { useUploadFileMutation } from "../../services/uploadFileApiSlice";
+
 
 export const CategoryPage = () => {
   const dispatch = useDispatch();
@@ -25,7 +24,7 @@ export const CategoryPage = () => {
   const category = params.category;
 
   const appliedFilters = useSelector(selectCategoryState);
-  const [uploadFile] = useUploadFileMutation();
+ 
 
   const { isSuccess, error } = useGetCategoryListQuery(appliedFilters, {
     skip: !appliedFilters.category,
@@ -48,19 +47,23 @@ export const CategoryPage = () => {
 
     try {
       const response = await uploadImageRequest(selectedFile, category);
-      console.log(response)
-
-      
+      console.log(response);
+      toast.success("File uploaded successfully!");
     } catch (error) {
-      if (error.message) {
-
-        console.log(error.message)
-        // Handle net::ERR_FAILED error
-        
-      
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message &&
+        error.response.data.message.displayMessage
+      ) {
+        console.log(error.response.data.message.displayMessage);
+        toast.error(error.response.data.message.displayMessage);
+      } else if (error.message) {
+        console.log(error.message);
+        toast.error("An error occurred: " + error.message);
       } else {
-        // Handle other errors
-       
+        console.log("An unknown error occurred.");
+        toast.error("An unknown error occurred.");
       }
     } finally {
       event.target.value = null;

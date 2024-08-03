@@ -2,17 +2,18 @@ import React from "react";
 import { motion } from "framer-motion";
 import classes from "./actionModal.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { onActionClose, selectActionModalState } from "../../store/actionModalSlice";
 import {
-  useDeleteRequestMutation,
-} from "../../services/actionModalApiSlice";
+  onActionClose,
+  selectActionModalState,
+} from "../../store/actionModalSlice";
+import { useDeleteRequestMutation } from "../../services/actionModalApiSlice";
 import { toast } from "react-toastify";
 
 export const ActionModal = () => {
   const { isOpen, modalData } = useSelector(selectActionModalState);
   const dispatch = useDispatch();
   const [deleteRequest, { error }] = useDeleteRequestMutation();
-  console.log(modalData)
+  console.log(modalData);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -115,10 +116,17 @@ export const ActionModal = () => {
             </label>
           </div>
           <div className={classes.buttonGroup}>
-            <button type="submit" className={classes.form__btn}>
+            <button
+              type="submit"
+              className={`${classes.form__btn} ${classes.form__btn__enabled}`}
+            >
               Delete
             </button>
-            <button type="button" className={classes.form__btn}>
+            <button
+              type="button"
+              className={`${classes.form__btn} ${classes.form__btn__enabled}`}
+              onClick={handleClose}
+            >
               Cancel
             </button>
           </div>
