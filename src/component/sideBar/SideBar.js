@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
 import Cookies from "js-cookie";
 import profile from "../../assets/profile_pic.png";
 import dashboard from "../../assets/home.svg";
@@ -16,6 +15,7 @@ import { useDispatch } from "react-redux";
 import { logout } from "../../store/authSlice";
 import { apiSlice } from "../../services/apiSlice";
 import { toast } from "react-toastify";
+import { useUserProfileQuery } from "../../services/authApiSlice";
 
 const categories = [
   { id: "home", image: dashboard, name: "HOME", path: "/dashboard" },
@@ -28,7 +28,7 @@ const categories = [
     path: "new_phones",
   },
   { id: "prexo", image: prexo, name: "PREXO", path: "prexo" },
-  { id: "openBox", image: openBox, name: "OPEN-BOX", path: "openBox" },
+  { id: "openBox", image: openBox, name: "OPEN-BOX", path: "open_box" },
 ];
 
 const contacts = [
@@ -37,17 +37,36 @@ const contacts = [
 ];
 
 export const SideBar = () => {
+  const [profile, setProfile] = useState({
+    userImg: null,
+    userName: null,
+    userId: null,
+  });
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const carousel = useRef();
+  const { data, isSuccess } = useUserProfileQuery();
+  console.log(data);
+  const name = data?.data?.name || "A"; // Default to "A" if name is undefined
+  const id = data?.data?.id
+  const img = name.slice(0, 1).toUpperCase(); // First letter capitalized
+  const userName = img + name.slice(1); //
+  useEffect(() => {
+    if (isSuccess) {
+      setProfile({
+        userImg: img,
+        userName,
+        userId: id,
+      });
+    }
+  }, [id, img, isSuccess, userName]);
 
   const handleLogOut = () => {
     Cookies.remove("token");
     Cookies.remove("expirationTime");
     dispatch(logout());
     dispatch(apiSlice.util.resetApiState());
-    
-    toast.success("Logged out successfully")
+    toast.success("Logged out successfully");
     navigate("/");
   };
   return (
@@ -56,18 +75,19 @@ export const SideBar = () => {
         <div className={classes.container__box}>
           <div className={classes.container__profile}>
             <div className={classes.container__profile__box}>
-              <img
+              {/* <img
                 src={profile}
                 alt="User"
                 className={classes.container__profile__box__img}
-              />
+              /> */}
+              {profile.userImg}
             </div>
             <div className={classes.container__profile__info}>
               <h1 className={classes.container__profile__info__name}>
-                Name: Ankit Baage
+                Name: {profile.userName}
               </h1>
               <h1 className={classes.container__profile__info__name}>
-                UserId: 1100215
+                User Id: {profile.userId}
               </h1>
             </div>
           </div>

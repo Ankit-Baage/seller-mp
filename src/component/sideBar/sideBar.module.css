@@ -31,7 +31,19 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0 4px 0 4px
 
+}
+.container__profile__box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Poppins", sans;
+  font-size: 21px;
+  font-weight: 600;
+  color: #FF6F3F;
+  border-radius: 50%;
+  background-color:#FFD4C5;
 }
 
 .container__profile__info {
@@ -127,9 +139,8 @@
 .box__colors__carousel__inner {
   display: flex;
   flex-direction: column;
-  /* cursor: grab; */
   scroll-snap-align: start;
-  padding-right: 4px;
+  padding-right: 8px;
   background-color: #FFFFFF;
 }
 

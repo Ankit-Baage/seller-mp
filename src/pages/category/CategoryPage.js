@@ -21,10 +21,11 @@ export const CategoryPage = () => {
 
   const params = useParams();
   const category = params.category;
+  console.log(category)
 
   const appliedFilters = useSelector(selectCategoryState);
 
-  const { isSuccess, error } = useGetCategoryListQuery(appliedFilters, {
+  const { isSuccess, error, refetch } = useGetCategoryListQuery(appliedFilters, {
     skip: !appliedFilters.category,
   });
   const tableData = useSelector(selectCategoryList);
@@ -47,6 +48,7 @@ export const CategoryPage = () => {
       const response = await uploadImageRequest(selectedFile, category);
       console.log(response);
       toast.success("File uploaded successfully!");
+      await refetch();
     } catch (error) {
       if (
         error.response &&
@@ -67,18 +69,37 @@ export const CategoryPage = () => {
       event.target.value = null;
     }
   };
-  const handleDownloadSample = async () => {
-    const downloadUrl =
-      "https://mgstorageaccount.blob.core.windows.net/mgbucket/mg_template_vrp_file.xlsx";
-    const anchor = document.createElement("a");
-    anchor.href = downloadUrl;
-    anchor.target = "_self";
-    anchor.download = "mg_template_vrp_file.xlsx";
-    document.body.appendChild(anchor);
+  // const handleDownloadSample = async () => {
+  //   const downloadUrl =
+  //     `https://mgstorageaccount.blob.core.windows.net/mgbucket/mg_template_${category}_file.xlsx`;
+  //   const anchor = document.createElement("a");
+  //   anchor.href = downloadUrl;
+  //   anchor.target = "_self";
+  //   anchor.download = "mg_template_vrp_file.xlsx";
+  //   document.body.appendChild(anchor);
 
-    anchor.click();
-    document.body.removeChild(anchor);
+  //   anchor.click();
+  //   document.body.removeChild(anchor);
+  // };
+ 
+  const handleDownloadSample = async () => {
+    try {
+      const downloadUrl =`https://mgstorageaccountdru.blob.core.windows.net/mgbucket/mg_template_${category}_file.xlsx `;
+      console.log(category)
+      const anchor = document.createElement("a");
+      anchor.href = downloadUrl;
+      anchor.target = "_self";
+      anchor.download = `mg_template_${category}_file.xlsx`; // Ensure the downloaded file name reflects the category
+      document.body.appendChild(anchor);
+      anchor.click();
+      document.body.removeChild(anchor);
+      
+    } catch (error) {
+      console.error("Error downloading the sample file:", error);
+      // Optionally, show a user-friendly message or toast notification
+    }
   };
+  
 
   return isSuccess ? (
     <div className={classes.box}>

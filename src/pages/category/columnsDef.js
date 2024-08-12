@@ -45,7 +45,6 @@ export const columnsConfig = {
         <div style={{ display: "flex", justifyContent: "center" }}>
           <button
             disabled={props.row.original.status === "deactivated"}
-
             style={{
               width: "fit-content",
               color: "#FFFFFF",
@@ -286,7 +285,97 @@ export const columnsConfig = {
                   ? "default"
                   : "pointer",
             }}
-            
+          >
+            {props.row.original.status === "deactivated" ? "Deleted" : "Delete"}
+          </button>
+        </div>
+      ),
+    }),
+    columnHelper.display({
+      id: "download",
+      header: <div style={{ textAlign: "center" }}>Download</div>,
+      cell: (props) => (
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <button
+            disabled={
+              props.row.original.approval_status === "pending for status"
+            }
+            style={{
+              width: "76px",
+              color: "#FFFFFF",
+              backgroundColor: "#46CD80",
+              fontSize: "12px",
+              lineHeight: "12px",
+              fontWeight: 500,
+              fontFamily: "Poppins, sans",
+              borderRadius: "4px",
+              padding: "8px",
+              border: "none",
+              cursor: "pointer",
+            }}
+            onClick={() => handleDownload(props.row.original)}
+          >
+            Download
+          </button>
+        </div>
+      ),
+    }),
+  ],
+  open_box: (handleOpenActionModal, handleDownload) => [
+    columnHelper.accessor("request_id", {
+      header: "Request Id",
+      cell: (info) => info.getValue(),
+      footer: (props) => props.column.id,
+    }),
+    columnHelper.accessor("status", {
+      header: "Status",
+      cell: (info) => info.getValue(),
+      footer: (props) => props.column.id,
+    }),
+    columnHelper.accessor("quantity", {
+      header: "Quantity",
+      cell: (info) => info.getValue(),
+      footer: (props) => props.column.id,
+    }),
+    columnHelper.accessor("remarks", {
+      header: "Remarks",
+      cell: (info) => info.getValue(),
+      footer: (props) => props.column.id,
+    }),
+
+    columnHelper.accessor("approval_status", {
+      header: "Approval Status",
+      cell: (info) => info.getValue(),
+      footer: (props) => props.column.id,
+    }),
+
+    columnHelper.display({
+      id: "actions",
+      header: <div style={{ textAlign: "center" }}>Action</div>,
+      cell: (props) => (
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <button
+            disabled={props.row.original.status === "deactivated"}
+            onClick={() => handleOpenActionModal(props.row.original)}
+            style={{
+              width: "fit-content",
+              color: "#FFFFFF",
+              fontSize: "12px",
+              lineHeight: "12px",
+              fontWeight: 500,
+              fontFamily: "Poppins, sans",
+              backgroundColor:
+                props.row.original.status === "deactivated"
+                  ? "#FFD4C5"
+                  : "#FF6F3F",
+              borderRadius: "4px",
+              padding: "8px",
+              border: "none",
+              cursor:
+                props.row.original.status === "deactivated"
+                  ? "default"
+                  : "pointer",
+            }}
           >
             {props.row.original.status === "deactivated" ? "Deleted" : "Delete"}
           </button>
