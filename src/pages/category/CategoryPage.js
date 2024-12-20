@@ -21,13 +21,16 @@ export const CategoryPage = () => {
 
   const params = useParams();
   const category = params.category;
-  console.log(category)
+  console.log(category);
 
   const appliedFilters = useSelector(selectCategoryState);
 
-  const { isSuccess, error, refetch } = useGetCategoryListQuery(appliedFilters, {
-    skip: !appliedFilters.category,
-  });
+  const { isSuccess, error, refetch } = useGetCategoryListQuery(
+    appliedFilters,
+    {
+      skip: !appliedFilters.category,
+    }
+  );
   const tableData = useSelector(selectCategoryList);
 
   useEffect(() => {
@@ -43,28 +46,37 @@ export const CategoryPage = () => {
 
   const handleFileChange = async (event) => {
     const selectedFile = event.target.files[0];
+    if (!selectedFile) return;
+    const toastId = toast.loading("Uploading...");
 
     try {
       const response = await uploadImageRequest(selectedFile, category);
       console.log(response);
-      toast.success("File uploaded successfully!");
+      toast.update(toastId, {
+        render: "File uploaded successfully!",
+        type: "success",
+        isLoading: false,
+        autoClose: 3000, // Close after 3 seconds
+      });
       await refetch();
     } catch (error) {
+      let errorMessage = "An unknown error occurred.";
       if (
         error.response &&
         error.response.data &&
         error.response.data.message &&
         error.response.data.message.displayMessage
       ) {
-        console.log(error.response.data.message.displayMessage);
-        toast.error(error.response.data.message.displayMessage);
+        errorMessage = error.response.data.message.displayMessage;
       } else if (error.message) {
-        console.log(error.message);
-        toast.error("An error occurred: " + error.message);
-      } else {
-        console.log("An unknown error occurred.");
-        toast.error("An unknown error occurred.");
+        errorMessage = "An error occurred: " + error.message;
       }
+      toast.update(toastId, {
+        render: errorMessage,
+        type: "error",
+        isLoading: false,
+        autoClose: 5000, // Close after 5 seconds
+      });
     } finally {
       event.target.value = null;
     }
@@ -81,11 +93,11 @@ export const CategoryPage = () => {
   //   anchor.click();
   //   document.body.removeChild(anchor);
   // };
- 
+
   const handleDownloadSample = async () => {
     try {
-      const downloadUrl =`https://mgstorageaccountdru.blob.core.windows.net/mgbucket/mg_template_${category}_file.xlsx `;
-      console.log(category)
+      const downloadUrl = `https://mgstorageaccountdru.blob.core.windows.net/mgbucket/mg_template_${category}_file.xlsx `;
+      console.log(category);
       const anchor = document.createElement("a");
       anchor.href = downloadUrl;
       anchor.target = "_self";
@@ -93,13 +105,11 @@ export const CategoryPage = () => {
       document.body.appendChild(anchor);
       anchor.click();
       document.body.removeChild(anchor);
-      
     } catch (error) {
       console.error("Error downloading the sample file:", error);
       // Optionally, show a user-friendly message or toast notification
     }
   };
-  
 
   return isSuccess ? (
     <div className={classes.box}>

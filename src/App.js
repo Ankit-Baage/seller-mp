@@ -9,10 +9,8 @@ import {
 import { CategoryPage } from "./pages/category/CategoryPage";
 import { ErrorPage } from "./pages/error/ErrorPage";
 import { RootLayout } from "./pages/RootLayout";
-import { ToastContainer } from "react-toastify";
 
 const router = createBrowserRouter([
-  // { path: "/", element: <LoginPage /> },
   {
     path: "/",
     element: <RootLayout />,
