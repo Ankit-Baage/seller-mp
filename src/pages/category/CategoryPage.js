@@ -15,6 +15,7 @@ import { CategoryPageSkeleton } from "../../component/skeleton/CategoryPageSkele
 import { toast } from "react-toastify";
 import { FileUploadInput } from "../../component/fileUploadInput/FileUploadInput";
 import { uploadImageRequest } from "../../http-request/uploadFile";
+import { finishUpload, startUpload } from "../../store/uploadModalSlice";
 
 export const CategoryPage = () => {
   const dispatch = useDispatch();
@@ -45,13 +46,17 @@ export const CategoryPage = () => {
   }, [category, dispatch, error]);
 
   const handleFileChange = async (event) => {
+    dispatch(
+      startUpload({
+        message: "Please wait a moment while we process it securely.",
+      })
+    );
     const selectedFile = event.target.files[0];
     if (!selectedFile) return;
     const toastId = toast.loading("Uploading...");
 
     try {
       const response = await uploadImageRequest(selectedFile, category);
-      console.log(response);
       toast.update(toastId, {
         render: "File uploaded successfully!",
         type: "success",
@@ -79,20 +84,9 @@ export const CategoryPage = () => {
       });
     } finally {
       event.target.value = null;
+      dispatch(finishUpload());
     }
   };
-  // const handleDownloadSample = async () => {
-  //   const downloadUrl =
-  //     `https://mgstorageaccount.blob.core.windows.net/mgbucket/mg_template_${category}_file.xlsx`;
-  //   const anchor = document.createElement("a");
-  //   anchor.href = downloadUrl;
-  //   anchor.target = "_self";
-  //   anchor.download = "mg_template_vrp_file.xlsx";
-  //   document.body.appendChild(anchor);
-
-  //   anchor.click();
-  //   document.body.removeChild(anchor);
-  // };
 
   const handleDownloadSample = async () => {
     try {

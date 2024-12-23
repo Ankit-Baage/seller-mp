@@ -9,6 +9,7 @@ import { ActionModal } from "./component/actionModal/ActionModal";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/ReactToastify.css";
 import { StockModal } from "./component/stockModal/StockModal";
+import { UploadBackDrop } from "./component/uploadBackDrop/UploadBackDrop";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -16,6 +17,7 @@ root.render(
     <Provider store={store}>
       <StockModal />
       <ActionModal />
+      <UploadBackDrop />
       <App />
       <ToastContainer
         autoClose={2000}
