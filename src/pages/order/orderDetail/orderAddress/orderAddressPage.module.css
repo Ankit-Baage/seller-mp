@@ -1,0 +1,42 @@
+.box {
+  background-color: #FFFFFF;
+  border-radius: 4px;
+  padding: 16px;
+}
+.box__grid{
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.box__upper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.box__content{
+ display: flex;
+ column-gap: 12px;
+ align-items: center;
+}
+
+.box__content__key {
+  font-family: "Poppins", sans;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 16px;
+  color: #989898;
+}
+
+.box__content__value {
+  font-family: "Poppins", sans;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 16px;
+  color: #2F3567;
+}
+
+.box__sep{
+  border: 1px solid #E9E9E9;
+}
