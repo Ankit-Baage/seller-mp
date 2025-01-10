@@ -8,4 +8,7 @@ export const spares = "/spares";
 export const newPhones = "/new_phones";
 export const login = "/login";
 export const uploadFile = "/upload_file";
+export const orders = "/orders"
+
+export const ordersListUrl = `${baseUrl}${version}${mode}${role}${orders}`
 

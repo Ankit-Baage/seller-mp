@@ -1,0 +1,52 @@
+.form__group {
+  position: relative;
+  padding: 16px 0 0;
+}
+
+
+.form__field {
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid #E6E6E6;
+  font-size: 14px;
+  line-height: 14px;
+  letter-spacing: 1px;
+  color: #2F3567;
+  font-family: "Poppins", sans;
+  padding: 12px;
+  background: transparent;
+}
+
+
+.form__field::placeholder {
+  color: transparent;
+}
+
+
+.form__label {
+  font-family: "Poppins", sans;
+  left: 12px;
+  padding: 0 12px;
+}
+
+.form__field:placeholder-shown~.form__label {
+  font-size: 14px;
+  cursor: text;
+  top: 26px;
+}
+
+
+.form__label,
+.form__field:focus~.form__label {
+  position: absolute;
+  top: 2px;
+  display: block;
+  transition: 0.2s;
+  font-size: 14px;
+  color: #9b9b9b;
+  background-color: #ffff;
+}
+
+.form__field:focus~.form__label {
+  color: #2F3567;
+}

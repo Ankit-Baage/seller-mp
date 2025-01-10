@@ -1,35 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import Cookies from "js-cookie";
-import profile from "../../assets/profile_pic.png";
-import dashboard from "../../assets/home.svg";
-import prexo from "../../assets/prexo.svg";
-import vrp from "../../assets/vrp.svg";
-import openBox from "../../assets/openBox.svg";
-import spare from "../../assets/spare.svg";
-import new_phone from "../../assets/new_phone.svg";
 
 import { NavLink, useNavigate } from "react-router-dom";
 
-import classes from "./sideBar.module.css";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/authSlice";
 import { apiSlice } from "../../services/apiSlice";
 import { toast } from "react-toastify";
 import { useUserProfileQuery } from "../../services/authApiSlice";
-
-const categories = [
-  { id: "home", image: dashboard, name: "HOME", path: "/dashboard" },
-  { id: "vrp", image: vrp, name: "VRP", path: "vrp" },
-  { id: "spares", image: spare, name: "SPARES", path: "spares" },
-  {
-    id: "new_phones",
-    image: new_phone,
-    name: "New Phones",
-    path: "new_phones",
-  },
-  { id: "prexo", image: prexo, name: "PREXO", path: "prexo" },
-  { id: "openBox", image: openBox, name: "OPEN-BOX", path: "open_box" },
-];
+import classes from "./sideBar.module.css";
+import Dropdown from "../dropDown/DropDown";
+import { dropdowns, withoutDropdowns } from "./dropDown";
 
 const contacts = [
   { id: "phone", link: "+91 9999123511" },
@@ -37,29 +18,28 @@ const contacts = [
 ];
 
 export const SideBar = () => {
-  const [profile, setProfile] = useState({
-    userImg: null,
-    userName: null,
-    userId: null,
-  });
+  // const [profile, setProfile] = useState({
+  //   userImg: null,
+  //   userName: null,
+  //   userId: null,
+  // });
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const carousel = useRef();
-  const { data, isSuccess } = useUserProfileQuery();
+  const { data } = useUserProfileQuery();
   console.log(data);
-  const name = data?.data?.name || "A"; // Default to "A" if name is undefined
-  const id = data?.data?.id
-  const img = name.slice(0, 1).toUpperCase(); // First letter capitalized
-  const userName = img + name.slice(1); //
-  useEffect(() => {
-    if (isSuccess) {
-      setProfile({
-        userImg: img,
-        userName,
-        userId: id,
-      });
-    }
-  }, [id, img, isSuccess, userName]);
+  // const name = data?.data?.name || "A"; 
+  // const id = data?.data?.id;
+  // const img = name.slice(0, 1).toUpperCase(); // First letter capitalized
+  // const userName = img + name.slice(1); 
+  // useEffect(() => {
+  //   if (isSuccess) {
+  //     setProfile({
+  //       userImg: img,
+  //       userName,
+  //       userId: id,
+  //     });
+  //   }
+  // }, [id, img, isSuccess, userName]);
 
   const handleLogOut = () => {
     Cookies.remove("token");
@@ -67,73 +47,42 @@ export const SideBar = () => {
     dispatch(logout());
     dispatch(apiSlice.util.resetApiState());
     toast.success("Logged out successfully");
-    navigate("/");
+    navigate("login");
   };
   return (
     <div className={classes.stack}>
       <div className={classes.container}>
-        <div className={classes.container__box}>
-          <div className={classes.container__profile}>
-            <div className={classes.container__profile__box}>
-              {/* <img
-                src={profile}
-                alt="User"
-                className={classes.container__profile__box__img}
-              /> */}
-              {profile.userImg}
-            </div>
-            <div className={classes.container__profile__info}>
-              <h1 className={classes.container__profile__info__name}>
-                Name: {profile.userName}
-              </h1>
-              <h1 className={classes.container__profile__info__name}>
-                User Id: {profile.userId}
-              </h1>
-            </div>
-          </div>
-          <hr className={classes.box__item__divider} />
-        </div>
-        <div className={classes.container__box__categories}>
-          <h1 className={classes.container__box__categories__title}>
-            Categories
-          </h1>
-          <div className={classes.box__colors__carousel} ref={carousel}>
-            <div
-              className={`${classes.container__box__categories__box} ${classes.box__colors__carousel__inner}
-          `}
+        <div className={classes.dropdown__menu}>
+          {withoutDropdowns.map((option) => (
+            <NavLink
+              to={option.path}
+              key={option.id}
+              className={({ isActive }) =>
+                isActive
+                  ? `${classes.dropdown__menu__item} ${classes.dropdown__menu__item__active}`
+                  : classes.dropdown__menu__item
+              }
+              end
             >
-              {categories.map((category) => (
-                <NavLink
-                  to={category.path}
-                  key={category.id}
-                  className={({ isActive }) =>
-                    isActive
-                      ? `${classes.container__box__categories__box__category} ${classes.isActive}`
-                      : classes.container__box__categories__box__category
-                  }
-                  end
-                >
-                  <img
-                    src={category.image}
-                    alt={category.name}
-                    className={
-                      classes.container__box__categories__box__category__img
-                    }
-                  />
-                  <h5
-                    className={
-                      classes.container__box__categories__box__category__name
-                    }
-                  >
-                    {category.name}
-                  </h5>
-                </NavLink>
-              ))}
-            </div>
-          </div>
+              <img src={option.image} alt={option.name} />
+              <h5 className={classes.dropDown__menu__item__name}>
+                {option.name}
+              </h5>
+            </NavLink>
+          ))}
         </div>
+
+        {dropdowns.map((dropdown, index) => (
+          <Dropdown
+          key={dropdown.id}
+          id={dropdown.id}
+          title={dropdown.title}
+          options={dropdown.options}
+          isLast={index === dropdowns.length - 1}
+        />
+        ))}
+
         <div className={classes.container__box__categories}>
-          <hr className={classes.box__item__divider} />
           <h1 className={classes.container__box__categories__title}>
             Contact Us
           </h1>

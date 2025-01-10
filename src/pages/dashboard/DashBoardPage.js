@@ -13,35 +13,33 @@ export const DashBoardPage = () => {
 
   useEffect(() => {
     if (!token) {
-      navigate("/");
+      navigate("login");
       return;
     }
 
     if (token === "EXPIRED") {
-      navigate("/");
+      navigate("login");
       return;
     }
 
     const tokenDuration = getExpirationDuration();
     if (!tokenDuration || tokenDuration <= 0) {
-      navigate("/");
+      navigate("login");
       return;
     }
 
     const timeoutId = setTimeout(() => {
-      navigate("/");
+      navigate("login");
     }, tokenDuration);
 
     return () => clearTimeout(timeoutId);
   }, [navigate, token]);
-
   return (
     <div className={classes.container}>
       <Header />
       <div className={classes.container__outlet}>
         <SideBar />
         <div className={classes.container__outlet__box}>
-         
           <Outlet />
         </div>
       </div>

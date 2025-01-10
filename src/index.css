@@ -18,6 +18,7 @@ body {
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #F5F6FA;
 }
 
 code {
@@ -26,9 +27,9 @@ code {
 }
 
 
-.hide-scroll {
+/* .hide-scroll {
   overflow: hidden;
-}
+} */
 
 
 

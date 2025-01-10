@@ -1,5 +1,4 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import "./App.css";
 import { LoginPage } from "./pages/auth/LogInPage";
 import { HomePage } from "./pages/homePage/HomePage";
 import {
@@ -9,6 +8,10 @@ import {
 import { CategoryPage } from "./pages/category/CategoryPage";
 import { ErrorPage } from "./pages/error/ErrorPage";
 import { RootLayout } from "./pages/RootLayout";
+import { OrderPage } from "./pages/order/OrderPage";
+import { OrderDetailPage } from "./pages/order/orderDetail/OrderDetailPage";
+import { OrderOutlet } from "./pages/order/OrderOutlet";
+import "./App.css";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +27,14 @@ const router = createBrowserRouter([
         children: [
           { index: true, element: <HomePage /> },
           { path: ":category", element: <CategoryPage /> },
+          {
+            path: "orders",
+            element: <OrderOutlet />,
+            children: [
+              { index: true, element: <OrderPage /> },
+              { path: ":orderId", element: <OrderDetailPage /> },
+            ],
+          },
         ],
       },
     ],

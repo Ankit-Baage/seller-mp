@@ -1,0 +1,19 @@
+.box {
+  font-family: "Poppins", sans;
+  color: #FF6F3F;
+  font-size: 14px;
+  line-height: 14px;
+  font-weight: 400;
+  border: 1px solid #E6E6E6;
+  border-radius: 4px;
+  padding: 6px;
+  cursor: pointer;
+  width: 100%
+}
+
+.box__option {
+  font-family: "Poppins", sans;
+  color: #808080;
+  font-size: 14px;
+  line-height: 1.5;
+}
