@@ -2,26 +2,30 @@ import { createColumnHelper } from "@tanstack/react-table";
 const columnHelper = createColumnHelper();
 
 export const shipmentDetailTableColumnsConfig = {
-  shipmentDetail: (handleOpenModal, handleOrderDetails) => [
-    columnHelper.accessor("item", {
-      header: "Item Name",
+  shipmentDetail: (handleOpenModal, handleOrderDetails, hasVrp) => [
+    columnHelper.accessor(hasVrp ? "lot_id" : "item", {
+      header: hasVrp ? "Lot Id" : "Item Name",
       cell: (info) => info.getValue(),
       footer: (props) => props.column.id,
     }),
     columnHelper.accessor("status", {
       header: "status",
-      cell: (info) =><div style={{
-        fontFamily: "Poppins",
-        fontSize: "12px",
-        fontWeight: 400,
-        lineHeight: "12px",
-        color:"#FFFFFF",
-        background:"#FF6F3F",
-        padding:"8px",
-        borderRadius:"4px"
-      }}>
-      {info.getValue()}
-    </div>,
+      cell: (info) => (
+        <div
+          style={{
+            fontFamily: "Poppins",
+            fontSize: "12px",
+            fontWeight: 400,
+            lineHeight: "12px",
+            color: "#FFFFFF",
+            background: "#FF6F3F",
+            padding: "8px",
+            borderRadius: "4px",
+          }}
+        >
+          {info.getValue()}
+        </div>
+      ),
       footer: (props) => props.column.id,
     }),
     columnHelper.accessor("qty", {

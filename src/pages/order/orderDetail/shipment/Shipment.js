@@ -13,8 +13,13 @@ export const Shipment = ({ shipment }) => {
   const [columnDefs, setColumnDefs] = useState([]);
 
   useEffect(() => {
-    setColumnDefs(shipmentDetailTableColumnsConfig["shipmentDetail"]);
-  }, []);
+    // Ensure shipment.category is available before checking if it's "VRP"
+    if (shipment?.category) {
+      const hasVrp = shipment.category === "VRP";
+      // Correctly call the function that updates the column definitions
+      setColumnDefs(shipmentDetailTableColumnsConfig.shipmentDetail(null, null, hasVrp));
+    }
+  }, [shipment?.category]); 
 
   console.log("shipmentDetails", shipment);
   return (
@@ -35,7 +40,10 @@ export const Shipment = ({ shipment }) => {
         id={shipment.id}
         className={classes.box__shipment__input}
       />
-      <label htmlFor={shipment.id}className={classes.box_shipment__label}></label>
+      <label
+        htmlFor={shipment.id}
+        className={classes.box_shipment__label}
+      ></label>
       <div className={classes.box__shipment__table}>
         <Table data={shipment?.items} columns={columnDefs} />
       </div>
