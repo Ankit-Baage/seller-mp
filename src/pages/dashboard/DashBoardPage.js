@@ -52,7 +52,7 @@ export function checkAuthLoader() {
   const expirationTime = Cookies.get("expirationTime");
 
   if (!token && !expirationTime) {
-    return redirect("/");
+    return redirect("/login");
   }
   return null;
 }

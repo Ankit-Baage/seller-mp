@@ -1,7 +1,7 @@
 import React from "react";
 import Cookies from "js-cookie";
 
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/authSlice";
@@ -23,14 +23,15 @@ export const SideBar = () => {
   //   userName: null,
   //   userId: null,
   // });
+  const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { data } = useUserProfileQuery();
   console.log(data);
-  // const name = data?.data?.name || "A"; 
-  // const id = data?.data?.id;
-  // const img = name.slice(0, 1).toUpperCase(); // First letter capitalized
-  // const userName = img + name.slice(1); 
+  const name = data?.data?.name || "U";
+  const id = data?.data?.id;
+  const img = name.slice(0, 1).toUpperCase(); // First letter capitalized
+  const userName = img + name.slice(1);
   // useEffect(() => {
   //   if (isSuccess) {
   //     setProfile({
@@ -40,6 +41,13 @@ export const SideBar = () => {
   //     });
   //   }
   // }, [id, img, isSuccess, userName]);
+  console.log("url ", location.pathname);
+  const isActiveParent = (basePath) => {
+    const currentPath = location.pathname;
+    return (
+      currentPath === `/${basePath}` || currentPath.startsWith(`/${basePath}`)
+    );
+  };
 
   const handleLogOut = () => {
     Cookies.remove("token");
@@ -52,13 +60,32 @@ export const SideBar = () => {
   return (
     <div className={classes.stack}>
       <div className={classes.container}>
+      <div className={classes.container__profile}>
+            <div className={classes.container__profile__box}>
+              {/* <img
+                src={profile}
+                alt="User"
+                className={classes.container__profile__box__img}
+              /> */}
+              {img}
+            </div>
+            <div className={classes.container__profile__info}>
+              <h1 className={classes.container__profile__info__name}>
+                Name: {name}
+              </h1>
+              <h1 className={classes.container__profile__info__name}>
+                User Id: {id}
+              </h1>
+            </div>
+          </div>
+          <hr className={classes.dropDown__sep} />
         <div className={classes.dropdown__menu}>
           {withoutDropdowns.map((option) => (
             <NavLink
               to={option.path}
               key={option.id}
-              className={({ isActive }) =>
-                isActive
+              className={
+                isActiveParent(option.path)
                   ? `${classes.dropdown__menu__item} ${classes.dropdown__menu__item__active}`
                   : classes.dropdown__menu__item
               }
@@ -74,12 +101,12 @@ export const SideBar = () => {
 
         {dropdowns.map((dropdown, index) => (
           <Dropdown
-          key={dropdown.id}
-          id={dropdown.id}
-          title={dropdown.title}
-          options={dropdown.options}
-          isLast={index === dropdowns.length - 1}
-        />
+            key={dropdown.id}
+            id={dropdown.id}
+            title={dropdown.title}
+            options={dropdown.options}
+            isLast={index === dropdowns.length - 1}
+          />
         ))}
 
         <div className={classes.container__box__categories}>

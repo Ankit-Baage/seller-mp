@@ -14,7 +14,7 @@ export const LoginPage = () => {
         password: data.password,
       }).unwrap();
       toast.success(response.message.displayMessage);
-      navigate("dashboard");
+      navigate("/");
     } catch (err) {
       toast.error(err.data.message.displayMessage);
     }

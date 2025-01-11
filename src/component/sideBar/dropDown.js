@@ -26,6 +26,6 @@ export const dropdowns = [
 ];
 
 export const withoutDropdowns = [
-  { id: "home", image: dashboard, name: "HOME", path: "/dashboard" },
+  { id: "home", image: dashboard, name: "HOME", path: "/" },
   { id: "orders", image: payment, name: "Orders", path: "orders" },
 ];

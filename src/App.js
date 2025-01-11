@@ -18,27 +18,21 @@ const router = createBrowserRouter([
     path: "/",
     element: <RootLayout />,
     errorElement: <ErrorPage />,
+    loader: checkAuthLoader,
     children: [
-      { index: true, element: <LoginPage /> },
+      { index: true, element: <HomePage /> },
+      { path: ":category", element: <CategoryPage /> },
       {
-        path: "dashboard",
-        element: <DashBoardPage />,
-        loader: checkAuthLoader,
+        path: "orders",
+        element: <OrderOutlet />,
         children: [
-          { index: true, element: <HomePage /> },
-          { path: ":category", element: <CategoryPage /> },
-          {
-            path: "orders",
-            element: <OrderOutlet />,
-            children: [
-              { index: true, element: <OrderPage /> },
-              { path: ":orderId", element: <OrderDetailPage /> },
-            ],
-          },
+          { index: true, element: <OrderPage /> },
+          { path: ":orderId", element: <OrderDetailPage /> },
         ],
       },
     ],
   },
+  { path: "login", element: <LoginPage /> },
 ]);
 
 function App() {
