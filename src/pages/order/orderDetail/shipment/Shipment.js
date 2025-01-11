@@ -32,10 +32,10 @@ export const Shipment = ({ shipment }) => {
       </div>
       <input
         type="checkbox"
-        id="shipment"
+        id={shipment.id}
         className={classes.box__shipment__input}
       />
-      <label htmlFor="shipment" className={classes.box_shipment__label}></label>
+      <label htmlFor={shipment.id}className={classes.box_shipment__label}></label>
       <div className={classes.box__shipment__table}>
         <Table data={shipment?.items} columns={columnDefs} />
       </div>

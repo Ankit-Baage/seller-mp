@@ -45,7 +45,7 @@ export const OrderDetailPage = () => {
       orderDetailTableColumnsConfig["orderDetail"](handleOpenModal)
     );
   }, [dispatch, handleOpenModal, orderId]);
-  console.log("orderDetail ", orderDetails);
+  console.log("shipments ", shipments);
 
   return isSuccess ? (
     <div className={classes.box}>
