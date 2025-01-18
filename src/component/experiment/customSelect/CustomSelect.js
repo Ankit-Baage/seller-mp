@@ -7,7 +7,7 @@ export const CustomSelect = ({
   selectOptionId,
   label,
 }) => {
-  const [currentSelection, setCurrentSelection] = useState(selectOptionId||"");
+  const [currentSelection, setCurrentSelection] = useState(selectOptionId);
 
   const handleChange = (event) => {
     const optionId = event.target.value;
@@ -16,7 +16,7 @@ export const CustomSelect = ({
     onChange(optionId)
     console.log(optionId)
   };
-  console.log(currentSelection)
+  console.log("currentSelection", currentSelection);
   return (
     <select
       className={classes.box}

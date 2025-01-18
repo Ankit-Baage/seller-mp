@@ -47,12 +47,4 @@ export const DashBoardPage = () => {
   );
 };
 
-export function checkAuthLoader() {
-  const token = Cookies.get("token");
-  const expirationTime = Cookies.get("expirationTime");
 
-  if (!token && !expirationTime) {
-    return redirect("/login");
-  }
-  return null;
-}

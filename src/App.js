@@ -1,10 +1,7 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { LoginPage } from "./pages/auth/LogInPage";
 import { HomePage } from "./pages/homePage/HomePage";
-import {
-  checkAuthLoader,
-  DashBoardPage,
-} from "./pages/dashboard/DashBoardPage";
+import { checkAuthLoader } from "./pages/RootLayout";
 import { CategoryPage } from "./pages/category/CategoryPage";
 import { ErrorPage } from "./pages/error/ErrorPage";
 import { RootLayout } from "./pages/RootLayout";

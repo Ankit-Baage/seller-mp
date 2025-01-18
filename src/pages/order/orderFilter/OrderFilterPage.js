@@ -54,7 +54,7 @@ export const OrderFilterPage = ({ filters }) => {
           label="Approval Status"
           optionData={optionData}
           onChange={(selectedOptionId) => handleSelection(selectedOptionId)}
-          selectOptionId={filters.status}
+          selectOptionId={filters.status||""}
         />
       </div>
     </div>

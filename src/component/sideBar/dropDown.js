@@ -9,23 +9,23 @@ import payment from "../../assets/payment.svg";
 export const dropdowns = [
   {
     id: "category",
-    title: "Categories",
+    title: "Manage Inventory",
     options: [
       { id: "vrp", image: vrp, name: "VRP", path: "vrp" },
-      { id: "spares", image: spare, name: "SPARES", path: "spares" },
+      { id: "spares", image: spare, name: "Spares", path: "spares" },
       {
         id: "new_phones",
         image: new_phone,
         name: "New Phones",
         path: "new_phones",
       },
-      { id: "prexo", image: prexo, name: "PREXO", path: "prexo" },
-      { id: "openBox", image: openBox, name: "OPEN-BOX", path: "open_box" },
+      { id: "openBox", image: openBox, name: "Open Box", path: "open_box" },
+      { id: "prexo", image: prexo, name: "Prexo", path: "prexo" },
     ],
   },
 ];
 
 export const withoutDropdowns = [
-  { id: "home", image: dashboard, name: "HOME", path: "/" },
+  { id: "home", image: dashboard, name: "Home", path: "/" },
   { id: "orders", image: payment, name: "Orders", path: "orders" },
 ];
