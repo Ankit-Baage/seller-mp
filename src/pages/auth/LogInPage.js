@@ -3,6 +3,7 @@ import { LogInForm } from "../../component/logInForm/LogInForm";
 import { useLoginMutation } from "../../services/authApiSlice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Card } from "../../component/infoCard/Card";
 
 export const LoginPage = () => {
   const navigate = useNavigate();

@@ -1,4 +1,7 @@
 .login {
+  width: 100vw;
+  height: 100vh;
+  background-color: #FFFFFF;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -89,7 +92,7 @@
   transition: 0.2s;
   font-size: 16px;
   color: #9b9b9b;
-  background-color: #F5F6FA;
+  background-color: #FFFFFF;
 }
 
 .form__field:focus~.form__label {
@@ -106,8 +109,6 @@
   background-color: #9C9C9C;
   padding: 18px;
   border-radius: 4px;
- 
-
 }
 
 .form__btn__enabled {
