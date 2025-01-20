@@ -68,7 +68,7 @@ const buttonGroups = [
       { id: "1-1", image: vrp, title: "VRP (54)", path: null },
       { id: "1-2", image: spare, title: "Spares (32)", path: null },
       { id: "1-3", image: new_phone, title: "New Phones (18)", path: null },
-      { id: "1-4", image: openBox, title: "SpareOpen Box (15)", path: null },
+      { id: "1-4", image: openBox, title: "Open Box (15)", path: null },
       { id: "1-5", image: prexo, title: "Prexo (27)", path: null },
     ],
   },
@@ -148,7 +148,6 @@ export const HomePage = () => {
                 />
                 <h1 className={classes.box__nav__title}>{buttonGroup.title}</h1>
               </div>
-              \
               {buttonGroup?.isLink?.active && (
                 <Link
                   to={buttonGroup.isLink.path}

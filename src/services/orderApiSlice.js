@@ -72,6 +72,7 @@ const selectOrderListResult = createSelector(
   (filter, state) => {
     const result = ordersListSlice.endpoints.getOrdersList.select({
       status: filter.status,
+      search:filter.search
     })(state);
     return result;
   }

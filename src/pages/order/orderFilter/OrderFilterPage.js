@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { SearchInput } from "../../../component/searchInput/SearchInput";
 import { useSearchParams } from "react-router-dom";
-
 import classes from "./orderFilterPage.module.css";
 import { useDispatch } from "react-redux";
 import { setOrderFilter } from "../../../store/orderFilterSlice";
@@ -13,48 +12,77 @@ const optionData = [
 ];
 
 export const OrderFilterPage = ({ filters }) => {
-  const [appliedFilter, setAppliedFilter] = useState({
-    status: null,
-  });
   const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useDispatch();
 
+  // Update filter state on initial render or URL change
   useEffect(() => {
     const statusParam = searchParams.get("status");
+    const searchParam = searchParams.get("search");
 
-    setAppliedFilter((prevFilters) => ({
-      ...prevFilters,
-      status: statusParam || null,
-    }));
-    dispatch(setOrderFilter({ status: statusParam }));
-  }, [dispatch, searchParams]);
+    if (
+      filters.status !== statusParam || 
+      filters.search !== searchParam
+    ) {
+      dispatch(
+        setOrderFilter({
+          status: statusParam || null,
+          search: searchParam || null,
+        })
+      );
+    }
+  }, [dispatch, searchParams, filters]);
 
-  const handleSelection = (selectedOptionId) => {
-    setAppliedFilter((prevFilters) => ({
-      ...prevFilters,
-      status: selectedOptionId || null,
-    }));
+  // Helper to update URL and dispatch filters
+  const updateFilterParams = (key, value) => {
     const newSearchParams = new URLSearchParams(searchParams);
-    if (selectedOptionId) {
-      newSearchParams.set("status", selectedOptionId);
+    if (value) {
+      newSearchParams.set(key, value);
     } else {
-      newSearchParams.delete("status");
+      newSearchParams.delete(key);
     }
     setSearchParams(newSearchParams);
-    dispatch(setOrderFilter({ status: appliedFilter.status }));
+    dispatch(setOrderFilter({ [key]: value || null }));
   };
+
+  const handleSelection = (selectedOptionId) => {
+    updateFilterParams("status", selectedOptionId);
+  };
+
+  const handleSearch = (searchText) => {
+    updateFilterParams("search", searchText);
+  };
+
+  const handleClearText = () => {
+    // Remove "search" from URL params
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.delete("search");
+    setSearchParams(newSearchParams);
+
+    // Reset "search" in the Redux store
+    dispatch(setOrderFilter({ search: null }));
+  };
+
   return (
     <div className={classes.box}>
+      {/* Search Input */}
       <div className={classes.box__content}>
-        <SearchInput placeholder="Search by Order Id or Transaction Id" />
+        <SearchInput
+          placeholder="Search by Order Id or Transaction Id"
+          onSearch={handleSearch}
+          searchTextFrmStore={filters.search}
+          searchFilter={filters.search != null}
+          onClear={handleClearText}
+        />
       </div>
 
+      {/* Custom Select Dropdown */}
       <div className={classes.box__content}>
         <CustomSelect
           label="Select All"
           optionData={optionData}
-          onChange={(selectedOptionId) => handleSelection(selectedOptionId)}
-          selectOptionId={filters.status||""}
+          onChange={handleSelection}
+          selectOptionId={filters.status || ""}
         />
       </div>
     </div>
