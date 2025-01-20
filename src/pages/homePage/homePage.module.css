@@ -93,8 +93,14 @@
 
 .box__nav__head {
   display: flex;
+ justify-content: space-between;
+}
+
+.box__nav__head__wrapper {
+  display: flex;
   column-gap: 8px;
   align-items: center;
+
 }
 
 .box__nav__img {
@@ -109,6 +115,14 @@
   font-size: 16px;
   line-height: 16px;
   font-weight: 600;
+}
+
+.box__nav__head__link {
+  font-family: "Poppins", sans;
+  color: #FF6F3F;
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 500;
 }
 
 .box__nav__sep {

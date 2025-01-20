@@ -17,6 +17,7 @@ import { Card } from "../../component/infoCard/Card";
 import classes from "./homePage.module.css";
 import { CustomSelect } from "../../component/experiment/customSelect/CustomSelect";
 import { PieChart } from "../../component/graphs/piChart/PiChart";
+import { Link } from "react-router-dom";
 
 const infoCards = [
   { id: 1, image: totalOrder, title: "Total Order", subTitle: "243" },
@@ -59,24 +60,32 @@ const buttonGroups = [
     id: 1,
     titleImage: newOrder,
     title: "New Orders",
+    isLink: {
+      active: true,
+      path: "orders",
+    },
     buttons: [
-      { id: "1-1", image: prexo, title: "Prexo (27)" },
-      { id: "1-2", image: vrp, title: "VRP (54)" },
-      { id: "1-3", image: openBox, title: "Open Box (15)" },
-      { id: "1-4", image: spare, title: "Spares (32)" },
-      { id: "1-5", image: new_phone, title: "New Phones (18)" },
+      { id: "1-1", image: vrp, title: "VRP (54)", path: null },
+      { id: "1-2", image: spare, title: "Spares (32)", path: null },
+      { id: "1-3", image: new_phone, title: "New Phones (18)", path: null },
+      { id: "1-4", image: openBox, title: "SpareOpen Box (15)", path: null },
+      { id: "1-5", image: prexo, title: "Prexo (27)", path: null },
     ],
   },
   {
     id: 2,
     titleImage: addInventory,
     title: "Add Inventory",
+    isLink: {
+      active: false,
+      path: null,
+    },
     buttons: [
-      { id: "2-1", image: prexo, title: "Prexo" },
-      { id: "2-2", image: vrp, title: "VRP" },
-      { id: "2-3", image: openBox, title: "Open Box" },
-      { id: "2-4", image: spare, title: "Spares" },
-      { id: "2-5", image: new_phone, title: "New Phones" },
+      { id: "2-1", image: vrp, title: "VRP", path: "vrp" },
+      { id: "2-2", image: spare, title: "spares", path: "spares" },
+      { id: "2-3", image: new_phone, title: "New Phones", path: "new_phones" },
+      { id: "2-4", image: openBox, title: "Open Box", path: "open_box" },
+      { id: "2-5", image: prexo, title: "Prexo", path: "prexo" },
     ],
   },
 ];
@@ -110,11 +119,10 @@ export const HomePage = () => {
               <div className={classes.box__infoCards__earnings}>
                 {earnings.map((earning) => (
                   <Info
-                  key={earning.id}
+                    key={earning.id}
                     image={earning.image}
                     title={earning.title}
                     subTitle={earning.subTitle}
-
                   />
                 ))}
               </div>
@@ -132,30 +140,59 @@ export const HomePage = () => {
         {buttonGroups.map((buttonGroup) => (
           <div className={classes.box__nav} key={buttonGroup.id}>
             <div className={classes.box__nav__head}>
-              <img
-                src={buttonGroup.titleImage}
-                alt={buttonGroup.title}
-                className={classes.box__nav__img}
-              />
-              <h1 className={classes.box__nav__title}>{buttonGroup.title}</h1>
+              <div className={classes.box__nav__head__wrapper}>
+                <img
+                  src={buttonGroup.titleImage}
+                  alt={buttonGroup.title}
+                  className={classes.box__nav__img}
+                />
+                <h1 className={classes.box__nav__title}>{buttonGroup.title}</h1>
+              </div>
+              \
+              {buttonGroup?.isLink?.active && (
+                <Link
+                  to={buttonGroup.isLink.path}
+                  className={classes.box__nav__head__link}
+                >
+                  View All
+                </Link>
+              )}
             </div>
+
             <hr className={classes.box__nav__sep} />
             <div className={classes.box__nav__buttons}>
-              {buttonGroup.buttons.map((button) => (
-                <button
-                  className={classes.box__nav__buttons__button}
-                  key={button.id}
-                >
-                  <img
-                    src={button.image}
-                    alt={button.title}
-                    className={classes.box__nav__buttons__bnt__img}
-                  />
-                  <h1 className={classes.box__nav__buttons__bnt__title}>
-                    {button.title}
-                  </h1>
-                </button>
-              ))}
+              {buttonGroup.buttons.map((button) =>
+                button.path ? (
+                  <Link
+                    to={button.path}
+                    className={classes.box__nav__buttons__button}
+                    key={button.id}
+                  >
+                    <img
+                      src={button.image}
+                      alt={button.title}
+                      className={classes.box__nav__buttons__bnt__img}
+                    />
+                    <h1 className={classes.box__nav__buttons__bnt__title}>
+                      {button.title}
+                    </h1>
+                  </Link>
+                ) : (
+                  <div
+                    className={classes.box__nav__buttons__button}
+                    key={button.id}
+                  >
+                    <img
+                      src={button.image}
+                      alt={button.title}
+                      className={classes.box__nav__buttons__bnt__img}
+                    />
+                    <h1 className={classes.box__nav__buttons__bnt__title}>
+                      {button.title}
+                    </h1>
+                  </div>
+                )
+              )}
             </div>
           </div>
         ))}

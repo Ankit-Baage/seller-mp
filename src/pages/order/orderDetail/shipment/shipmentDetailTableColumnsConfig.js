@@ -9,7 +9,7 @@ export const shipmentDetailTableColumnsConfig = {
       footer: (props) => props.column.id,
     }),
     columnHelper.accessor("status", {
-      header: "status",
+      header: "Status",
       cell: (info) => (
         <div
           style={{

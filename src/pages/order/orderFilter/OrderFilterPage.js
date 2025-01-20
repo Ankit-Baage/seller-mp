@@ -46,12 +46,12 @@ export const OrderFilterPage = ({ filters }) => {
   return (
     <div className={classes.box}>
       <div className={classes.box__content}>
-        <SearchInput placeholder="Search orders..." />
+        <SearchInput placeholder="Search by Order Id or Transaction Id" />
       </div>
 
       <div className={classes.box__content}>
         <CustomSelect
-          label="Approval Status"
+          label="Select All"
           optionData={optionData}
           onChange={(selectedOptionId) => handleSelection(selectedOptionId)}
           selectOptionId={filters.status||""}

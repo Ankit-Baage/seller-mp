@@ -36,29 +36,39 @@ export const OrderDetailPage = () => {
   }, []);
 
   const handleStatusChange = async ({ shipment_id, status }) => {
-    if (orderId && shipment_id && status) {
-      const loadingToast = toast.loading("Updating status...");
-      try {
-        const result = await updateShipmentStatus({
-          orderId,
-          id: shipment_id,
-          status,
-        }).unwrap();
-        toast.update(loadingToast, {
-          render:
-            result.message.displayMessage ||
-            "Shipment status updated successfully!", // Use response message or fallback
-          type: "success",
-          isLoading: false,
-        });
-      } catch (error) {
-        toast.update(loadingToast, {
-          render: error?.message.displayMessage || "Failed to update shipment status. Please try again.",
-          type: "error",
-          isLoading: false,
-        });
-        console.log(error);
-      }
+    if (!orderId || !shipment_id || !status) {
+      toast.error("Missing required parameters to update shipment status.");
+      return;
+    }
+  
+    const loadingToast = toast.loading("Updating status...");
+  
+    try {
+      // Perform the API call
+      const result = await updateShipmentStatus({
+        orderId,
+        id: shipment_id,
+        status,
+      }).unwrap();
+  
+      // Close the loading toast and show success message
+      toast.update(loadingToast, {
+        render:
+          result?.message?.displayMessage || "Shipment status updated successfully!",
+        type: "success",
+        isLoading: false,
+        autoClose: 2000, // Automatically close after 2 seconds
+      });
+    } catch (error) {
+      // Close the loading toast and show error message
+      toast.update(loadingToast, {
+        render:
+          error?.message?.displayMessage || "Failed to update shipment status. Please try again.",
+        type: "error",
+        isLoading: false,
+        autoClose: 2000, // Automatically close after 2 seconds
+      });
+      console.error(error);
     }
   };
 

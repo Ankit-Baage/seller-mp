@@ -20,7 +20,7 @@ export const OrderAddressPage = ({ address }) => {
         </div>
         <div className={classes.box__upper}>
           <div className={classes.box__content}>
-            <h1 className={classes.box__content__key}>No. of Item :</h1>
+            <h1 className={classes.box__content__key}>No. of Items :</h1>
             <h1 className={classes.box__content__value}>
               {address?.num_of_items}
             </h1>
