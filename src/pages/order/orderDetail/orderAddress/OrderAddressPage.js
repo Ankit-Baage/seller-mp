@@ -3,6 +3,7 @@ import { dateFormatter } from "../../../../utils/dateFormatter";
 import classes from "./orderAddressPage.module.css";
 
 export const OrderAddressPage = ({ address }) => {
+
   return (
     <div className={classes.box}>
       <div className={classes.box__grid}>
@@ -41,7 +42,7 @@ export const OrderAddressPage = ({ address }) => {
           </div>
           <div className={classes.box__content}>
             <h1 className={classes.box__content__key}>Address :</h1>
-            <h1 className={classes.box__content__value}>{address?.area}</h1>
+            <h1 className={classes.box__content__value}>{address?.address}</h1>
           </div>
         </div>
         <div className={classes.box__upper}>

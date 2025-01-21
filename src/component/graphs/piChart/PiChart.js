@@ -2,7 +2,7 @@ import React from "react";
 
 export const PieChart = ({ data }) => {
   // Calculate total sales
-  const totalSales = data.reduce((acc, item) => acc + item.sales, 0);
+  const totalSales = data?.reduce((acc, item) => acc + item.sales, 0);
 
   // Function to calculate coordinates for an arc
   const calculateArc = (startAngle, endAngle, radius) => {

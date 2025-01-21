@@ -50,7 +50,7 @@ export const shipmentDetailTableColumnsConfig = {
             alignItems: "center",
           }}
         >
-          <button
+          {/* <button
             style={{
               color: "#C6C6C6",
               fontSize: "12px",
@@ -82,7 +82,7 @@ export const shipmentDetailTableColumnsConfig = {
             onClick={() => handleOpenModal(props.row.original)}
           >
             Download Invoice
-          </button>
+          </button> */}
         </div>
       ),
     }),

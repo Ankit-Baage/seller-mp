@@ -39,7 +39,7 @@
   justify-content: center;
   align-items: center;
   column-gap: 20px;
-  margin-right: 56px;
+  margin-right: 44px;
 
 }
 
@@ -54,21 +54,10 @@
   color: #FFFFFF;
 }
 
-/* .box_shipment__label__test {
-  width: 16px;
-  height: 16px;
-  background-image: url(../../../../assets/shipmentDropdown.svg);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-
-} */
 .box_shipment__label {
   position: absolute;
   top: 20px;
-  right: 32px;
+  right: 16px;
   width: 16px;
   height: 16px;
   background-image: url(../../../../assets/shipmentExpand.svg);
