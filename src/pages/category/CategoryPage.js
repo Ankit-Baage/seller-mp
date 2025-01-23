@@ -17,6 +17,8 @@ import { FileUploadInput } from "../../component/fileUploadInput/FileUploadInput
 import { uploadImageRequest } from "../../http-request/uploadFile";
 import { finishUpload, startUpload } from "../../store/uploadModalSlice";
 
+import { UploadBackDrop } from "../../component/uploadBackDrop/UploadBackDrop";
+
 export const CategoryPage = () => {
   const dispatch = useDispatch();
 
@@ -25,27 +27,23 @@ export const CategoryPage = () => {
   console.log(category);
 
   const appliedFilters = useSelector(selectCategoryState);
+  const { isUploadOpen, message } = useSelector((state) => state.uploadModal);
 
-  const { isSuccess, error, refetch } = useGetCategoryListQuery(
-    appliedFilters,
-    {
-      skip: !appliedFilters.category,
-    }
-  );
+  const { isSuccess, error } = useGetCategoryListQuery(appliedFilters, {
+    skip: !appliedFilters.category,
+  });
   const tableData = useSelector(selectCategoryList);
 
   useEffect(() => {
-    if (error) {
-      toast.error(error.data.detail, { pauseOnFocusLoss: false });
-    }
     dispatch(
       setCategory({
         category: category,
       })
     );
-  }, [category, dispatch, error]);
+  }, [category, dispatch]);
 
   const handleFileChange = async (event) => {
+    console.log("File change triggered");
     dispatch(
       startUpload({
         message: "Please wait a moment while we process it securely.",
@@ -61,9 +59,8 @@ export const CategoryPage = () => {
         render: "File uploaded successfully!",
         type: "success",
         isLoading: false,
-        autoClose: 3000, // Close after 3 seconds
+        autoClose: 2000, // Close after 3 seconds
       });
-      await refetch();
     } catch (error) {
       let errorMessage = "An unknown error occurred.";
       if (
@@ -80,7 +77,7 @@ export const CategoryPage = () => {
         render: errorMessage,
         type: "error",
         isLoading: false,
-        autoClose: 5000, // Close after 5 seconds
+        autoClose: 2000, // Close after 5 seconds
       });
     } finally {
       event.target.value = null;
@@ -95,7 +92,7 @@ export const CategoryPage = () => {
       const anchor = document.createElement("a");
       anchor.href = downloadUrl;
       anchor.target = "_self";
-      anchor.download = `mg_template_${category}_file.xlsx`; // Ensure the downloaded file name reflects the category
+      anchor.download = `mg_template_${category}_file.xlsx`;
       document.body.appendChild(anchor);
       anchor.click();
       document.body.removeChild(anchor);
@@ -117,6 +114,9 @@ export const CategoryPage = () => {
           Download Template
         </button>
       </div>
+
+      {isUploadOpen && <UploadBackDrop message={message} />}
+
       <TablePage data={tableData} />
     </div>
   ) : (

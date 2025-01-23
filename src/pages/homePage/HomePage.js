@@ -9,7 +9,7 @@ import new_phone from "../../assets/new_phone.svg";
 import { Info } from "../../component/infoCard/Info";
 import { Card } from "../../component/infoCard/Card";
 import classes from "./homePage.module.css";
-import { CustomSelect } from "../../component/experiment/customSelect/CustomSelect";
+import { CustomSelect } from "../../component/customSelect/CustomSelect";
 import { PieChart } from "../../component/graphs/piChart/PiChart";
 import { Link } from "react-router-dom";
 import {
@@ -35,11 +35,11 @@ const buttonGroups = [
       path: "orders",
     },
     buttons: [
-      { id: "1-1", image: vrp, title: "VRP (54)", path: null },
       { id: "1-2", image: spare, title: "Spares (32)", path: null },
+      { id: "1-1", image: vrp, title: "VRP (54)", path: null },
       { id: "1-3", image: new_phone, title: "New Phones (18)", path: null },
       { id: "1-4", image: openBox, title: "Open Box (15)", path: null },
-      { id: "1-5", image: prexo, title: "Prexo (27)", path: null },
+      // { id: "1-5", image: prexo, title: "Prexo (27)", path: null },
     ],
   },
   {
@@ -51,11 +51,11 @@ const buttonGroups = [
       path: null,
     },
     buttons: [
-      { id: "2-1", image: vrp, title: "VRP", path: "vrp" },
       { id: "2-2", image: spare, title: "spares", path: "spares" },
+      { id: "2-1", image: vrp, title: "VRP", path: "vrp" },
       { id: "2-3", image: new_phone, title: "New Phones", path: "new_phones" },
       { id: "2-4", image: openBox, title: "Open Box", path: "open_box" },
-      { id: "2-5", image: prexo, title: "Prexo", path: "prexo" },
+      // { id: "2-5", image: prexo, title: "Prexo", path: "prexo" },
     ],
   },
 ];

@@ -1,0 +1,15 @@
+.box{
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  background-color: #FFFF;
+}
+
+.box__title {
+  font-size: 16px;
+  line-height: 16px;
+  font-weight: 500;
+  font-family: "Poppins", sans;
+  color: #FF6F3F;
+  text-align: center;
+}

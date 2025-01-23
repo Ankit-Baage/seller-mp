@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import classes from "./shipment.module.css";
-import { CustomSelect } from "../../../../component/experiment/customSelect/CustomSelect";
+import { CustomSelect } from "../../../../component/customSelect/CustomSelect";
 import { shipmentDetailTableColumnsConfig } from "./shipmentDetailTableColumnsConfig";
 import { Table } from "../../../../component/table/Table";
-import { useUpdateShipmentStatusMutation } from "../../../../services/orderDetailApiSlice";
+
 
 const optionData = [
   { id: "0", label: "Pending" },

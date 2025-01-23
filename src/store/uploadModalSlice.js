@@ -3,16 +3,16 @@ import { createSlice } from "@reduxjs/toolkit";
 const uploadModalSlice = createSlice({
   name: "uploadModal",
   initialState: {
-    isOpen: false,
+    isUploadOpen: false,
     message: "",
   },
   reducers: {
     startUpload: (state, action) => {
-      state.isOpen = true;
+      state.isUploadOpen = true;
       state.message = action.payload.message;
     },
     finishUpload: (state) => {
-      state.isOpen = false;
+      state.isUploadOpen = false;
       state.message = "";
     },
   },

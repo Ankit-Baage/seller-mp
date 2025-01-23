@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import { Branding } from "../branding/Branding";
 
 
+
+
 export const LogInForm = ({ onSubmit }) => {
   const { register, handleSubmit, formState, reset } = useForm({
     defaultValues: {
@@ -39,7 +41,9 @@ export const LogInForm = ({ onSubmit }) => {
                 pattern: {
                   value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
                   message: "Enter a valid Email address",
+                  
                 },
+                
               })}
             />
             <label htmlFor="email" className={classes.form__label}>

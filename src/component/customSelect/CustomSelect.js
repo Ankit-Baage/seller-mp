@@ -3,26 +3,28 @@ import classes from "./customSelect.module.css";
 
 export const CustomSelect = ({
   optionData,
-  onSelection,
-  selectedId,
+  onChange,
+  selectOptionId,
   label,
 }) => {
-  const [currentSeller, setCurrentSeller] = useState(selectedId || "");
+  const [currentSelection, setCurrentSelection] = useState(selectOptionId);
 
   const handleChange = (event) => {
     const optionId = event.target.value;
-    setCurrentSeller(optionId);
-    onSelection(label, optionId);
+    setCurrentSelection(optionId);
+    // onSelection(label, optionId);
+    onChange(optionId)
+    console.log(optionId)
   };
-
+  console.log("currentSelection", currentSelection);
   return (
     <select
       className={classes.box}
       onChange={handleChange}
-      value={currentSeller}
+      value={currentSelection}
     >
       <option value="" className={classes.box__option}>
-        Select {label}
+        {label}
       </option>
       {optionData.map((option) => (
         <option

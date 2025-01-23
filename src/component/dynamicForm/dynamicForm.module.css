@@ -1,0 +1,27 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  row-gap: 20px;
+}
+
+.form__btns {
+  display: flex;
+  justify-content: space-between;
+}
+.form__btn {
+  font-size: 16px;
+  line-height: 18px;
+  font-weight: 500;
+  font-family: "Poppins", sans;
+  color: #FFFFFF;
+  background-color: #9C9C9C;
+  padding: 12px;
+  border-radius: 4px;
+}
+
+.form__btn__enabled {
+  background-color: #FF6F3F;
+  cursor: pointer;
+
+}

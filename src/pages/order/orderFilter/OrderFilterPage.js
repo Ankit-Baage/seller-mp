@@ -4,7 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import classes from "./orderFilterPage.module.css";
 import { useDispatch } from "react-redux";
 import { setOrderFilter } from "../../../store/orderFilterSlice";
-import { CustomSelect } from "../../../component/experiment/customSelect/CustomSelect";
+import { CustomSelect } from "../../../component/customSelect/CustomSelect";
 
 const optionData = [
   { id: 1, label: "Approved" },

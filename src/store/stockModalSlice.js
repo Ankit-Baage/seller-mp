@@ -3,29 +3,17 @@ import { createSlice } from "@reduxjs/toolkit";
 const stockModalSlice = createSlice({
   name: "stockModal",
   initialState: {
-    isOpen: false,
-    modalData: {
-      category: null,
-      request_id: null,
-      status: null,
-    },
+    isStockOpen: false,
+    stockModalData: null,
   },
   reducers: {
     onStockOpen: (state, action) => {
-      state.isOpen = true;
-      state.modalData = {
-        category: action.payload.category,
-        request_id: action.payload.request_id,
-        status: action.payload.status,
-      };
+      state.isStockOpen = true;
+      state.stockModalData = action.payload.stockModalData;
     },
     onStockClose: (state) => {
-      state.isOpen = false;
-      state.modalData = {
-        category: null,
-      request_id: null,
-      status: null,
-      };
+      state.isStockOpen = false;
+      state.stockModalData = null;
     },
   },
 });

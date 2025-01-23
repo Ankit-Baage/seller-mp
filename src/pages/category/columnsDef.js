@@ -2,7 +2,7 @@ import { createColumnHelper } from "@tanstack/react-table";
 const columnHelper = createColumnHelper();
 
 export const columnsConfig = {
-  vrp: (handleOpenActionModal, handleDownload, handleStockOpenActionModal) => [
+  vrp: (handleOpenModal, handleStockOpenModal, handleDownload) => [
     columnHelper.accessor("lot_id", {
       header: "Lot Id",
       cell: (info) => info.getValue(),
@@ -46,7 +46,7 @@ export const columnsConfig = {
           <button
             disabled={props.row.original.status === "deactivated"}
             style={{
-              width: "fit-content",
+              width: "68px",
               color: "#FFFFFF",
               fontSize: "12px",
               lineHeight: "12px",
@@ -68,9 +68,9 @@ export const columnsConfig = {
                   ? "default"
                   : "pointer",
             }}
-            onClick={() => handleStockOpenActionModal(props.row.original)}
+            onClick={() => handleStockOpenModal(props.row.original)}
           >
-            {props.row.original.stock_status === "sold" ? "Sold" : "In Stock"}
+            {props.row.original.stock_status === "sold" ? "Sold Out" : "In Stock"}
           </button>
         </div>
       ),
@@ -101,7 +101,7 @@ export const columnsConfig = {
                   ? "default"
                   : "pointer",
             }}
-            onClick={() => handleOpenActionModal(props.row.original)}
+            onClick={() => handleOpenModal(props.row.original)}
           >
             {props.row.original.status === "deactivated" ? "Deleted" : "Delete"}
           </button>
@@ -138,7 +138,7 @@ export const columnsConfig = {
       ),
     }),
   ],
-  spares: (handleOpenActionModal, handleDownload) => [
+  spares: (handleOpenModal, handleDownload) => [
     columnHelper.accessor("request_id", {
       header: "Request Id",
       cell: (info) => info.getValue(),
@@ -173,7 +173,8 @@ export const columnsConfig = {
         <div style={{ display: "flex", justifyContent: "center" }}>
           <button
             disabled={props.row.original.status === "deactivated"}
-            onClick={() => handleOpenActionModal(props.row.original)}
+            // onClick={() => handleOpenActionModal(props.row.original)}
+            onClick={() => handleOpenModal(props.row.original)}
             style={{
               width: "fit-content",
               color: "#FFFFFF",
@@ -230,7 +231,7 @@ export const columnsConfig = {
       ),
     }),
   ],
-  new_phones: (handleOpenActionModal, handleDownload) => [
+  new_phones: (handleOpenModal, handleDownload) => [
     columnHelper.accessor("request_id", {
       header: "Request Id",
       cell: (info) => info.getValue(),
@@ -265,7 +266,8 @@ export const columnsConfig = {
         <div style={{ display: "flex", justifyContent: "center" }}>
           <button
             disabled={props.row.original.status === "deactivated"}
-            onClick={() => handleOpenActionModal(props.row.original)}
+            // onClick={() => handleOpenActionModal(props.row.original)}
+            onClick={() => handleOpenModal(props.row.original)}
             style={{
               width: "fit-content",
               color: "#FFFFFF",
@@ -321,7 +323,7 @@ export const columnsConfig = {
       ),
     }),
   ],
-  open_box: (handleOpenActionModal, handleDownload) => [
+  open_box: (handleOpenModal, handleDownload) => [
     columnHelper.accessor("request_id", {
       header: "Request Id",
       cell: (info) => info.getValue(),
@@ -356,7 +358,8 @@ export const columnsConfig = {
         <div style={{ display: "flex", justifyContent: "center" }}>
           <button
             disabled={props.row.original.status === "deactivated"}
-            onClick={() => handleOpenActionModal(props.row.original)}
+            // onClick={() => handleOpenActionModal(props.row.original)}
+            onClick={() => handleOpenModal(props.row.original)}
             style={{
               width: "fit-content",
               color: "#FFFFFF",

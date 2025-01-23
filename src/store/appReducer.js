@@ -6,9 +6,13 @@ import actionModalReducer from "./actionModalSlice";
 import stockModalReducer from "./stockModalSlice";
 import uploadModalReducer from "./uploadModalSlice";
 import orderFilterReducer from "./orderFilterSlice";
+import modalReducer from "./modalSlice"
+import backdropReducer from "./backdropSlice"
 
 const appReducer = combineReducers({
   auth: authReducer,
+  backdrop: backdropReducer,
+  modal: modalReducer,
   categoryFilter: categoryFilterReducer,
   orderFilter: orderFilterReducer,
   actionModal: actionModalReducer,
