@@ -1,6 +1,6 @@
 import { apiSlice } from "./apiSlice";
 
-export const actionModalApiSlice = apiSlice.injectEndpoints({
+export const modalApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     deleteRequest: builder.mutation({
       query: ({ category, request_id }) => ({
@@ -27,4 +27,4 @@ export const actionModalApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useDeleteRequestMutation } = actionModalApiSlice;
+export const { useDeleteRequestMutation } = modalApiSlice;

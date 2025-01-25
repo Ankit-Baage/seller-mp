@@ -9,10 +9,13 @@ import { store } from "./store";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/ReactToastify.css";
 
+import { Modal } from "./component/modal/Modal";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
+      <Modal />
       <App />
       <ToastContainer
         autoClose={2000}

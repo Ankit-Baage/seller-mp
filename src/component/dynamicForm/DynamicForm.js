@@ -6,6 +6,7 @@ import { FileUploadInput } from "./fileUploadInput/FileUploadInput";
 import classes from "./dynamicForm.module.css";
 
 export const DynamicForm = ({
+  heading,
   config,
   onSubmit,
   onClose,
@@ -30,6 +31,7 @@ export const DynamicForm = ({
 
   return (
     <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+      {heading && <h1 className={classes.form__head}>{heading}</h1>}
       {config.map((field, index) => {
         const key = `${field.id}_${index}`;
 

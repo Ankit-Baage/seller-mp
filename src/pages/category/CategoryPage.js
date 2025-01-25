@@ -15,19 +15,14 @@ import { CategoryPageSkeleton } from "../../component/skeleton/CategoryPageSkele
 import { toast } from "react-toastify";
 import { FileUploadInput } from "../../component/fileUploadInput/FileUploadInput";
 import { uploadImageRequest } from "../../http-request/uploadFile";
-import { finishUpload, startUpload } from "../../store/uploadModalSlice";
-
-import { UploadBackDrop } from "../../component/uploadBackDrop/UploadBackDrop";
+import { closeModal, openModal } from "../../store/modalSlice";
 
 export const CategoryPage = () => {
   const dispatch = useDispatch();
 
   const params = useParams();
   const category = params.category;
-  console.log(category);
-
   const appliedFilters = useSelector(selectCategoryState);
-  const { isUploadOpen, message } = useSelector((state) => state.uploadModal);
 
   const { isSuccess, error } = useGetCategoryListQuery(appliedFilters, {
     skip: !appliedFilters.category,
@@ -43,10 +38,12 @@ export const CategoryPage = () => {
   }, [category, dispatch]);
 
   const handleFileChange = async (event) => {
-    console.log("File change triggered");
     dispatch(
-      startUpload({
-        message: "Please wait a moment while we process it securely.",
+      openModal({
+        component: "uploadModal",
+        uiData: {
+          heading: "Please wait a moment while we process it securely.",
+        },
       })
     );
     const selectedFile = event.target.files[0];
@@ -54,7 +51,7 @@ export const CategoryPage = () => {
     const toastId = toast.loading("Uploading...");
 
     try {
-      const response = await uploadImageRequest(selectedFile, category);
+      await uploadImageRequest(selectedFile, category);
       toast.update(toastId, {
         render: "File uploaded successfully!",
         type: "success",
@@ -81,7 +78,7 @@ export const CategoryPage = () => {
       });
     } finally {
       event.target.value = null;
-      dispatch(finishUpload());
+      dispatch(closeModal());
     }
   };
 
@@ -115,7 +112,6 @@ export const CategoryPage = () => {
         </button>
       </div>
 
-      {isUploadOpen && <UploadBackDrop message={message} />}
 
       <TablePage data={tableData} />
     </div>

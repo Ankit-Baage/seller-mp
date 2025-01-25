@@ -27,7 +27,6 @@ export const SideBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { data } = useUserProfileQuery();
-  console.log(data);
   const name = data?.data?.name || "U";
   const id = data?.data?.id;
   const img = name.slice(0, 1).toUpperCase(); // First letter capitalized
@@ -41,12 +40,16 @@ export const SideBar = () => {
   //     });
   //   }
   // }, [id, img, isSuccess, userName]);
-  console.log("url ", location.pathname);
   const isActiveParent = (basePath) => {
     const currentPath = location.pathname;
-    return (
-      currentPath === `/${basePath}` || currentPath.startsWith(`/${basePath}`)
-    );
+  
+    // Explicitly check if the basePath is "/" (homepage)
+    if (basePath === "/") {
+      return currentPath === "/";
+    }
+  
+    // For other paths, check if the currentPath starts with basePath
+    return currentPath.startsWith(`/${basePath}`);
   };
 
   const handleLogOut = () => {

@@ -13,7 +13,6 @@ export const categoryListSlice = apiSlice.injectEndpoints({
       query: ({ category }) => `${category}`,
       transformResponse: (responseData) => {
         const loadedCategoryList = responseData.data;
-        console.log(loadedCategoryList);
         return categoryListAdapter.setAll(initialState, loadedCategoryList);
       },
       providesTags: (result, error, arg) => {

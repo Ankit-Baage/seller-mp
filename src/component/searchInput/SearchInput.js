@@ -41,6 +41,7 @@ export const SearchInput = ({
       </label>
       {!searchFilter ? (
         <button type="submit" className={classes.container__box}>
+          |
           <img
             src={search}
             alt="search"

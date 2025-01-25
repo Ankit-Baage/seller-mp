@@ -5,6 +5,15 @@
   row-gap: 20px;
 }
 
+.form__head {
+  font-size: 16px;
+  line-height: 16px;
+  font-weight: 500;
+  font-family: "Poppins", sans;
+  color: #FF6F3F;
+  text-align: center;
+}
+
 .form__btns {
   display: flex;
   justify-content: space-between;
