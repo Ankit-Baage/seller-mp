@@ -9,13 +9,14 @@ import new_phone from "../../assets/new_phone.svg";
 import { Info } from "../../component/infoCard/Info";
 import { Card } from "../../component/infoCard/Card";
 import classes from "./homePage.module.css";
-import { CustomSelect } from "../../component/customSelect/CustomSelect";
+
 import { PieChart } from "../../component/graphs/piChart/PiChart";
 import { Link } from "react-router-dom";
 import {
   useGetOrderSummaryQuery,
   useGetSalesSummaryQuery,
 } from "../../services/homeApiSlice";
+import { CustomSelect } from "../../component/customSelect/CustomSelect";
 
 
 const optionData = [
@@ -117,7 +118,7 @@ export const HomePage = () => {
               </div>
               {earningSummary?.sales_summary ? (
                 <div className={classes.box__earning__rightColumn}>
-                  <CustomSelect optionData={optionData} label="Choose" />
+                  <CustomSelect options={optionData} label="Choose" />
 
                   <PieChart data={earningSummary?.sales_summary} />
                 </div>

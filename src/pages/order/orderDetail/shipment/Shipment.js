@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import classes from "./shipment.module.css";
+// import { CustomSelect } from "../../../../component/customSelect/CustomSelect";
 import { CustomSelect } from "../../../../component/customSelect/CustomSelect";
 import { shipmentDetailTableColumnsConfig } from "./shipmentDetailTableColumnsConfig";
 import { Table } from "../../../../component/table/Table";
@@ -38,9 +39,10 @@ export const Shipment = ({ shipment, onChange }) => {
           <h1 className={classes.box__shipment__head}>{shipment?.title}</h1>
           <CustomSelect
             label="Change Status"
-            optionData={optionData}
+            options={optionData}
             onChange={(id) => handleChange(id)}
-            selectOptionId={shipment.status_id}
+            value={shipment.status_id}
+            
           />
         </div>
         <div className={classes.box__shipment__btns}>

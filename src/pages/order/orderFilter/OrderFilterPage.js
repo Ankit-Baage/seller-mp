@@ -14,8 +14,6 @@ const optionData = [
 export const OrderFilterPage = ({ filters }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useDispatch();
-
-  // Update filter state on initial render or URL change
   useEffect(() => {
     const statusParam = searchParams.get("status");
     const searchParam = searchParams.get("search");
@@ -80,9 +78,9 @@ export const OrderFilterPage = ({ filters }) => {
       <div className={classes.box__content}>
         <CustomSelect
           label="Select All"
-          optionData={optionData}
+          options={optionData}
           onChange={handleSelection}
-          selectOptionId={filters.status || ""}
+          value={filters.status || ""}
         />
       </div>
     </div>

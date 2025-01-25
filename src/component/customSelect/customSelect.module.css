@@ -1,4 +1,8 @@
-.box {
+/* .box {
+  padding: 16px 0 0;
+} */
+
+.box__select {
   width: 100%;
   font-family: "Poppins", sans;
   color: #FF6F3F;

@@ -1,9 +1,10 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { CustomInput } from "./customInput/CustomInput";
-import { CustomSelect } from "./customSelect/CustomSelect";
-import { FileUploadInput } from "./fileUploadInput/FileUploadInput";
+import { CustomInput } from "../customInput/CustomInput";
+import { CustomSelect } from "../customSelect/CustomSelect";
+
 import classes from "./dynamicForm.module.css";
+import { FileUploadInput } from "../fileUploadInput/FileUploadInput";
 
 export const DynamicForm = ({
   heading,
