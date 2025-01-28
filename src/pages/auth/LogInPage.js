@@ -57,8 +57,14 @@ export const LoginPage = () => {
 
   return (
     <div className={classes.box}>
-      <Branding />
-      <DynamicForm config={formConfig} onSubmit={onSubmit} primaryButtonLabel="Sign In"/>
+      <div className={classes.box__form}>
+        <Branding />
+        <DynamicForm
+          config={formConfig}
+          onSubmit={onSubmit}
+          primaryButtonLabel="Sign In"
+        />
+      </div>
     </div>
   );
 };

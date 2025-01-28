@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import classes from "./customSelect.module.css";
 
 export const CustomSelect = ({
-  options, // Renamed for better clarity
+  options,
   onChange,
-  value, // Directly controlled by parent for consistency
+  value,
   label,
 }) => {
   const [currentSelection, setCurrentSelection] = useState(value || "");
@@ -22,7 +22,7 @@ export const CustomSelect = ({
       onChange={handleChange}
       value={currentSelection}
     >
-      <option value="" disabled className={classes.box__select__option}>
+      <option value="" className={classes.box__select__option}>
         {label || "Select an option"}
       </option>
       {options?.map((option) => (

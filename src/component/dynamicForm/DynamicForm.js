@@ -14,12 +14,14 @@ export const DynamicForm = ({
   primaryButtonLabel,
   secondaryButtonLabel,
 }) => {
-  const { register, handleSubmit, setValue, formState } = useForm();
+  const defaultValues = config.reduce((acc, field) => {
+    acc[field.id] = field.defaultValue || ""; // Set default values for each field
+    return acc;
+  }, {});
+  const { register, handleSubmit, setValue, formState } = useForm({
+    defaultValues,
+  });
   const { isValid } = formState;
-
-  // useEffect(() => {
-  //   trigger(); // Trigger validation on form load
-  // }, [trigger]);
 
   const handleFileUpload = (id, event) => {
     const file = event.target.files[0];
@@ -50,7 +52,6 @@ export const DynamicForm = ({
                 label={field.label}
                 register={register}
                 validation={field.validation}
-                defaultValue={field.defaultValue || ""}
                 disabled={field.disabled}
               />
             );
@@ -60,7 +61,6 @@ export const DynamicForm = ({
               <CustomSelect
                 key={key}
                 options={field.options}
-                selectOptionId={field.defaultValue}
                 label={field.label}
                 onChange={(value) => setValue(field.id, value)}
               />

@@ -1,8 +1,14 @@
 .box {
-  height: 100vh;
+  background-color: #FFFF;
+  padding: 64px;
+}
+
+.box__form {
+  max-width: 40vw;
+  height: 100%;
   display: flex;
   flex-direction: column;
   row-gap: 40px;
-  padding: 64px 280px;
-  background-color: #FFFF;
+  margin: 0 auto;
+  
 }
