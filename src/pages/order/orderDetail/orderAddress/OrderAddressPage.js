@@ -3,7 +3,6 @@ import { dateFormatter } from "../../../../utils/dateFormatter";
 import classes from "./orderAddressPage.module.css";
 
 export const OrderAddressPage = ({ address }) => {
-
   return (
     <div className={classes.box}>
       <div className={classes.box__grid}>
@@ -35,23 +34,32 @@ export const OrderAddressPage = ({ address }) => {
           </div>
         </div>
         <hr className={classes.box__sep} />
-        <div className={classes.box__upper}>
-          <div className={classes.box__content}>
-            <h1 className={classes.box__content__key}>Name :</h1>
-            <h1 className={classes.box__content__value}>{address?.name}</h1>
+        <div className={classes.box__lower}>
+          <div className={classes.box__lower__content}>
+            <div className={classes.box__content}>
+              <h1 className={classes.box__content__key}>Name:</h1>
+              <h1 className={classes.box__content__value}>{address?.name}</h1>
+            </div>
+            <div className={classes.box__content}>
+              <h1 className={classes.box__content__key}>Phone Number:</h1>
+              <h1 className={classes.box__content__value}>
+                {address?.mobile_no}
+              </h1>
+            </div>
           </div>
-          <div className={classes.box__content}>
-            <h1 className={classes.box__content__key}>Address :</h1>
+
+          <div className={classes.box__content__address}>
+            <h1 className={classes.box__content__key}>Address:</h1>
             <h1 className={classes.box__content__value}>{address?.address}</h1>
           </div>
         </div>
         <div className={classes.box__upper}>
-          <div className={classes.box__content}>
+          {/* <div className={classes.box__content}>
             <h1 className={classes.box__content__key}>Phone No. :</h1>
             <h1 className={classes.box__content__value}>
               {address?.mobile_no}
             </h1>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

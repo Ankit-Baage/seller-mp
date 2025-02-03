@@ -14,11 +14,30 @@
   align-items: center;
   justify-content: space-between;
 }
+.box__lower {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 120px;
+}
+.box__lower__content {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
 
 .box__content{
  display: flex;
  column-gap: 12px;
  align-items: center;
+ width: max-content;
+}
+
+.box__content__address {
+  display: flex;
+ column-gap: 12px;
+ justify-content: center;
+
 }
 
 .box__content__key {
@@ -38,5 +57,5 @@
 }
 
 .box__sep{
-  border: 1px solid #E9E9E9;
+  border: 1px solid #EFEFEF;
 }
